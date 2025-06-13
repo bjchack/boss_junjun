@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About - BJC Bandlocking Tool</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>About This BJC Tool</h1>
+
+  <div class="section imei-box">
+    <p>
+      <strong>BJC Bandlocking Tool</strong> is a mobile-friendly web app designed to make it easy to:
+    </p>
+    <ul style="text-align: left;">
+      <li>Log in to your ZLT S10G router (Admin/User)</li>
+      <li>Lock onto specific LTE bands (Band 3, 28, 40, 41)</li>
+      <li>Generate valid IMEI numbers for device testing</li>
+      <li>Search online using a built-in Google search</li>
+    </ul>
+    <p>
+      This tool works offline (for IMEI and UI), and can be packaged into an APK.
+    </p>
+    <p style="margin-top: 1rem;">
+      🔒 Please use responsibly. This tool is for educational and diagnostic purposes only.
+    </p>
+  </div>
+
+  <div class="section">
+    <a href="tool.html" class="btn login-btn">← Back to Home</a>
+    <a href="https://www.facebook.com/share/1BVUWJiauV/" target="_blank" class="btn social-btn">📘 Follow on Facebook</a>
+  </div>
+
+  <footer>
+    owner by Junjun Cruz &copy; 2025 BJC Tool. All rights reserved.
+  </footer>
+
+</body>
+</html>
