@@ -1,4 +1,8 @@
 {
-  "key": "ABCD-1234-EFGH",
-  "expiry": "2026-01-01"
+  "licenses": [
+    {
+      "key": "ABCD-1234-EFGH",
+      "expiry": "2026-01-01"
+    }
+  ]
 }
