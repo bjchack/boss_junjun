@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ZLT Tool - License</title>
+  <title>ZLT Tool</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body, html {
-      margin: 0; padding: 0;
-      font-family: sans-serif;
-      background: #111; color: white;
-      display: flex; flex-direction: column;
-      height: 100vh;
+      margin: 0; padding: 0; height: 100%;
+      font-family: Arial, sans-serif;
+      background: #111; color: #fff;
     }
     #auth {
-      margin: auto;
-      text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100vh;
     }
     input {
-      padding: 10px;
-      width: 80%;
-      font-size: 18px;
+      padding: 10px; width: 80%; font-size: 16px;
       margin-bottom: 10px;
     }
     button {
       padding: 10px 20px;
-      font-size: 18px;
+      font-size: 16px;
       background: limegreen;
       color: white;
       border: none;
       cursor: pointer;
     }
     iframe {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100vh;
       border: none;
       display: none;
     }
@@ -40,43 +38,42 @@
 
 <div id="auth">
   <h2>Enter License Key</h2>
-  <input id="license" placeholder="XXXXXX-XXXXXX" />
-  <br>
+  <input id="license" placeholder="XXXXXX-XXXXXX">
   <button onclick="checkLicense()">Unlock Tool</button>
 </div>
 
 <iframe id="tool" src="tool.html"></iframe>
 
 <script>
-  const licensesURL = "https://bjchack.github.io/zlts10g/licenses.json";
+const LICENSE_URL = "https://bjchack.github.io/zlts10g/licenses.json";
 
-  function checkLicense() {
-    const input = document.getElementById("license").value.trim();
-    fetch(licensesURL)
-      .then(res => res.json())
-      .then(data => {
-        const found = data.licenses.find(item =>
-          item.key === input &&
-          new Date(item.expiry) >= new Date()
-        );
-        if (found) {
-          localStorage.setItem("zlt_license", input);
-          showTool();
-        } else {
-          alert("❌ Invalid or expired license.");
-        }
-      })
-      .catch(() => alert("⚠️ Cannot fetch license file."));
-  }
+function checkLicense() {
+  const key = document.getElementById("license").value.trim();
 
-  function showTool() {
-    document.getElementById("auth").style.display = "none";
-    document.getElementById("tool").style.display = "block";
-  }
+  fetch(LICENSE_URL)
+    .then(res => res.json())
+    .then(data => {
+      const match = data.licenses.find(item =>
+        item.key === key && new Date(item.expiry) >= new Date()
+      );
+      if (match) {
+        localStorage.setItem("zlt_license", key);
+        loadTool();
+      } else {
+        alert("❌ Invalid or expired license.");
+      }
+    })
+    .catch(() => alert("⚠️ Cannot fetch license file."));
+}
 
-  // auto unlock if already licensed
-  const saved = localStorage.getItem("zlt_license");
-  if (saved) checkLicense(saved);
+function loadTool() {
+  document.getElementById("auth").style.display = "none";
+  document.getElementById("tool").style.display = "block";
+}
+
+// Auto-load if license saved
+const savedKey = localStorage.getItem("zlt_license");
+if (savedKey) checkLicense(savedKey);
 </script>
 
 </body>
