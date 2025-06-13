@@ -2,16 +2,75 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>BJC License Login</title>
-  <link rel="stylesheet" href="style.css">
+  <title>License Input</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      padding-top: 80px;
+      text-align: center;
+    }
+    input, button {
+      padding: 12px;
+      margin: 10px;
+      width: 80%;
+      max-width: 300px;
+    }
+    #status {
+      color: red;
+      margin-top: 15px;
+    }
+    footer {
+      margin-top: 100px;
+      font-size: 13px;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
-  <h2>Enter License Key</h2>
-  <input type="text" id="licenseInput" placeholder="Enter your license key">
-  <button onclick="verifyLicense()">Unlock Tool</button>
-  <p id="status"></p>
-  <footer>Facebook. Copyright © BJC Jujunjun Cruz</footer>
+  <h2>🔐 Enter License Key</h2>
+  <input type="text" id="licenseKey" placeholder="EX: NS9G-NQSB">
+  <br>
+  <button onclick="validateKey()">Submit</button>
+  <div id="status"></div>
 
-  <script src="ghigdJjjh488gkjdujjjksurljnbdl.js"></script>
+  <footer>
+    &copy; Facebook. Copyright BJC Jujunjun Cruz
+  </footer>
+
+  <script>
+    async function validateKey() {
+      const key = document.getElementById("licenseKey").value.trim();
+      const status = document.getElementById("status");
+
+      if (!key) {
+        status.textContent = "Please enter a license key.";
+        return;
+      }
+
+      try {
+        const res = await fetch("https://bjchack.github.io/zltlicensetest/licenses.json");
+        const data = await res.json();
+        const match = data.licenses.find(lic => lic.key === key);
+
+        if (!match) {
+          status.textContent = "❌ Invalid key.";
+          return;
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        if (match.expiry < today) {
+          status.textContent = "⛔ Key expired.";
+          return;
+        }
+
+        localStorage.setItem("valid_license", key);
+        window.location.href = "tool.html";
+      } catch (e) {
+        console.error(e);
+        status.textContent = "⚠️ Cannot fetch license file.";
+      }
+    }
+  </script>
 </body>
 </html>
