@@ -1,8 +1,4 @@
 {
-  "licenses": [
-    {
-      "key": "BJC123-TEST456",
-      "expiry": "2026-01-01"
-    }
-  ]
+  "key": "ABCD-1234-EFGH",
+  "expiry": "2026-01-01"
 }
