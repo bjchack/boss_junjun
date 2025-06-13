@@ -2,10 +2,10 @@
   "licenses": [
     {
       "key": "ABC123-XYZ789",
-      "expiry": "2026-01-01"
+      "expiry": "2026-06-13"
     },
     {
-      "key": "BJC456-TEST111",
+      "key": "BJC456-TEST999",
       "expiry": "2025-12-31"
     }
   ]
