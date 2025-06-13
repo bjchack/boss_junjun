@@ -1,78 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
   <title>License Key Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
-      background: #f4f4f4;
-    }
-    h2 {
-      color: #333;
-    }
-    button {
-      padding: 10px 20px;
-      background: #00b894;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #019875;
-    }
-    pre {
-      margin-top: 20px;
-      background: #333;
-      color: #0f0;
-      padding: 15px;
-      width: 90%;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 10px;
-      overflow-x: auto;
-    }
-    #copyBtn {
-      margin-top: 10px;
-      background: #0984e3;
-    }
+    body { font-family: Arial; padding: 20px; background: #222; color: #fff; }
+    input, button { font-size: 18px; margin: 5px 0; padding: 10px; width: 100%; }
+    .output { background: #000; color: lime; padding: 10px; margin-top: 10px; }
   </style>
 </head>
 <body>
-  <h2>🎟️ License Key Generator</h2>
+  <h2>License Generator</h2>
+  <label>Expiry Date (YYYY-MM-DD):</label>
+  <input type="date" id="expiry" />
   <button onclick="generate()">Generate License</button>
-  <pre id="result">Press "Generate License" to create a new key.</pre>
-  <button id="copyBtn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+  <div class="output" id="result"></div>
 
   <script>
     function generate() {
-      const part1 = Math.random().toString(36).substring(2, 6).toUpperCase();
-      const part2 = Math.random().toString(36).substring(2, 6).toUpperCase();
-      const key = `${part1}-${part2}`;
-
-      const expiry = new Date();
-      expiry.setFullYear(expiry.getFullYear() + 1);
-      const expiryDate = expiry.toISOString().split("T")[0];
-
-      const jsonFormat = {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      const part = () => Array.from({length: 6}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+      const key = part() + "-" + part();
+      const expiry = document.getElementById("expiry").value;
+      const result = {
         key: key,
-        expiry: expiryDate
+        expiry: expiry
       };
-
-      document.getElementById("result").textContent = JSON.stringify(jsonFormat, null, 2);
-    }
-
-    function copyToClipboard() {
-      const text = document.getElementById("result").textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("✅ License JSON copied!");
-      }, () => {
-        alert("❌ Failed to copy.");
-      });
+      document.getElementById("result").innerText = JSON.stringify(result, null, 2);
     }
   </script>
 </body>
