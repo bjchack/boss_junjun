@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Generate License</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Generate New License Key</h2>
+  <button onclick="generate()">Generate</button>
+  <pre id="output"></pre>
+  <script>
+    function generate() {
+      const part1 = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const part2 = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const key = `${part1}-${part2}`;
+      const expiry = new Date();
+      expiry.setFullYear(expiry.getFullYear() + 1);
+      const expiryStr = expiry.toISOString().split("T")[0];
+
+      document.getElementById("output").textContent =
+        `License Key: ${key}\nExpiry: ${expiryStr}\n\nAdd to licenses.json like this:\n{\n  "key": "${key}",\n  "expiry": "${expiryStr}"\n}`;
+    }
+  </script>
+</body>
+</html>
