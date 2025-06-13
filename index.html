@@ -1,76 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>License Input</title>
+  <title>ZLT Tool - License</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff;
-      padding-top: 80px;
+    body, html {
+      margin: 0; padding: 0;
+      font-family: sans-serif;
+      background: #111; color: white;
+      display: flex; flex-direction: column;
+      height: 100vh;
+    }
+    #auth {
+      margin: auto;
       text-align: center;
     }
-    input, button {
-      padding: 12px;
-      margin: 10px;
+    input {
+      padding: 10px;
       width: 80%;
-      max-width: 300px;
+      font-size: 18px;
+      margin-bottom: 10px;
     }
-    #status {
-      color: red;
-      margin-top: 15px;
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background: limegreen;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
-    footer {
-      margin-top: 100px;
-      font-size: 13px;
-      color: #888;
+    iframe {
+      width: 100%; height: 100%;
+      border: none;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <h2>🔐 Enter License Key</h2>
-  <input type="text" id="licenseKey" placeholder="EX: NS9G-NQSB">
+
+<div id="auth">
+  <h2>Enter License Key</h2>
+  <input id="license" placeholder="XXXXXX-XXXXXX" />
   <br>
-  <button onclick="validateKey()">Submit</button>
-  <div id="status"></div>
+  <button onclick="checkLicense()">Unlock Tool</button>
+</div>
 
-  <footer>
-    &copy; Facebook. Copyright BJC Jujunjun Cruz
-  </footer>
+<iframe id="tool" src="tool.html"></iframe>
 
-  <script>
-    async function validateKey() {
-      const key = document.getElementById("licenseKey").value.trim();
-      const status = document.getElementById("status");
+<script>
+  const licensesURL = "https://bjchack.github.io/zlts10g/licenses.json";
 
-      if (!key) {
-        status.textContent = "Please enter a license key.";
-        return;
-      }
-
-      try {
-        const res = await fetch("https://bjchack.github.io/zltlicensetest/licenses.json");
-        const data = await res.json();
-        const match = data.licenses.find(lic => lic.key === key);
-
-        if (!match) {
-          status.textContent = "❌ Invalid key.";
-          return;
+  function checkLicense() {
+    const input = document.getElementById("license").value.trim();
+    fetch(licensesURL)
+      .then(res => res.json())
+      .then(data => {
+        const found = data.licenses.find(item =>
+          item.key === input &&
+          new Date(item.expiry) >= new Date()
+        );
+        if (found) {
+          localStorage.setItem("zlt_license", input);
+          showTool();
+        } else {
+          alert("❌ Invalid or expired license.");
         }
+      })
+      .catch(() => alert("⚠️ Cannot fetch license file."));
+  }
 
-        const today = new Date().toISOString().split("T")[0];
-        if (match.expiry < today) {
-          status.textContent = "⛔ Key expired.";
-          return;
-        }
+  function showTool() {
+    document.getElementById("auth").style.display = "none";
+    document.getElementById("tool").style.display = "block";
+  }
 
-        localStorage.setItem("valid_license", key);
-        window.location.href = "tool.html";
-      } catch (e) {
-        console.error(e);
-        status.textContent = "⚠️ Cannot fetch license file.";
-      }
-    }
-  </script>
+  // auto unlock if already licensed
+  const saved = localStorage.getItem("zlt_license");
+  if (saved) checkLicense(saved);
+</script>
+
 </body>
 </html>
