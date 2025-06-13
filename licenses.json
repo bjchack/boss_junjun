@@ -1,12 +1,8 @@
 {
   "licenses": [
     {
-      "key": "ABC123-XYZ789",
+      "key": "NS9G-NQSB",
       "expiry": "2026-06-13"
-    },
-    {
-      "key": "BJC456-TEST999",
-      "expiry": "2025-12-31"
     }
   ]
 }
