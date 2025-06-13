@@ -2,23 +2,77 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Generate License Key</title>
+  <title>License Key Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background: #f4f4f4;
+    }
+    h2 {
+      color: #333;
+    }
+    button {
+      padding: 10px 20px;
+      background: #00b894;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #019875;
+    }
+    pre {
+      margin-top: 20px;
+      background: #333;
+      color: #0f0;
+      padding: 15px;
+      width: 90%;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+    #copyBtn {
+      margin-top: 10px;
+      background: #0984e3;
+    }
+  </style>
 </head>
 <body>
-  <h2>License Generator</h2>
-  <button onclick="generate()">Generate Key</button>
-  <pre id="result"></pre>
+  <h2>🎟️ License Key Generator</h2>
+  <button onclick="generate()">Generate License</button>
+  <pre id="result">Press "Generate License" to create a new key.</pre>
+  <button id="copyBtn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
 
   <script>
     function generate() {
       const part1 = Math.random().toString(36).substring(2, 6).toUpperCase();
       const part2 = Math.random().toString(36).substring(2, 6).toUpperCase();
       const key = `${part1}-${part2}`;
+
       const expiry = new Date();
       expiry.setFullYear(expiry.getFullYear() + 1);
+      const expiryDate = expiry.toISOString().split("T")[0];
 
-      document.getElementById("result").textContent =
-        `Key: ${key}\nExpiry: ${expiry.toISOString().split('T')[0]}\n\nAdd this to licenses.json.`;
+      const jsonFormat = {
+        key: key,
+        expiry: expiryDate
+      };
+
+      document.getElementById("result").textContent = JSON.stringify(jsonFormat, null, 2);
+    }
+
+    function copyToClipboard() {
+      const text = document.getElementById("result").textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("✅ License JSON copied!");
+      }, () => {
+        alert("❌ Failed to copy.");
+      });
     }
   </script>
 </body>
