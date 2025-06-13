@@ -1,80 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ZLT Tool</title>
+  <title>ZLT Tool - License</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body, html {
-      margin: 0; padding: 0; height: 100%;
-      font-family: Arial, sans-serif;
-      background: #111; color: #fff;
-    }
-    #auth {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      height: 100vh;
-    }
-    input {
-      padding: 10px; width: 80%; font-size: 16px;
-      margin-bottom: 10px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background: limegreen;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    iframe {
-      width: 100%;
-      height: 100vh;
-      border: none;
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div id="auth">
-  <h2>Enter License Key</h2>
-  <input id="license" placeholder="XXXXXX-XXXXXX">
-  <button onclick="checkLicense()">Unlock Tool</button>
-</div>
-
-<iframe id="tool" src="tool.html"></iframe>
-
-<script>
-const LICENSE_URL = "https://bjchack.github.io/zlts10g/licenses.json";
-
-function checkLicense() {
-  const key = document.getElementById("license").value.trim();
-
-  fetch(LICENSE_URL)
-    .then(res => res.json())
-    .then(data => {
-      const match = data.licenses.find(item =>
-        item.key === key && new Date(item.expiry) >= new Date()
-      );
-      if (match) {
-        localStorage.setItem("zlt_license", key);
-        loadTool();
-      } else {
-        alert("❌ Invalid or expired license.");
-      }
-    })
-    .catch(() => alert("⚠️ Cannot fetch license file."));
-}
-
-function loadTool() {
-  document.getElementById("auth").style.display = "none";
-  document.getElementById("tool").style.display = "block";
-}
-
-// Auto-load if license saved
-const savedKey = localStorage.getItem("zlt_license");
-if (savedKey) checkLicense(savedKey);
-</script>
-
+  <div class="container">
+    <h2>🔐 Enter License Key</h2>
+    <input type="text" id="license" placeholder="Enter License Key">
+    <button onclick="checkLicense()">Unlock</button>
+    <p id="status"></p>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
