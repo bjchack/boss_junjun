@@ -1,12 +1,4 @@
 {
-  "licenses": [
-    {
-      "key": "ABC123-XYZ789",
-      "expiry": "2025-12-31"
-    },
-    {
-      "key": "DEF456-GHI012",
-      "expiry": "2026-01-15"
-    }
-  ]
+  "key": "ABC123-XYZ789",
+  "expiry": "2023-12-31"
 }
