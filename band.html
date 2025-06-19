@@ -4,125 +4,71 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BJC Bandlocking Tool</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
       text-align: center;
+      padding: 20px;
     }
 
     h1 {
-      color: #00ffc3;
-      margin-top: 30px;
-    }
-
-    h5 {
-      color: #ccc;
-      margin-bottom: 20px;
+      color: #4fc3f7;
     }
 
     .section {
       margin: 20px auto;
-      padding: 10px;
-      max-width: 600px;
     }
 
     .btn, .band-btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      color: white;
       text-decoration: none;
-      border-radius: 8px;
       font-weight: bold;
-      transition: 0.3s ease;
     }
 
-    .btn:hover, .band-btn:hover {
-      transform: scale(1.03);
-      opacity: 0.9;
+    .admin-btn { background: #f06292; }
+    .login-btn { background: #64b5f6; }
+    .logout-btn { background: #ff8a65; }
+
+    .band3 { background: #2196f3; }
+    .band28 { background: #4caf50; }
+    .band40 { background: #ff5722; }
+    .band41 { background: #9c27b0; }
+
+    .about-btn { background: #607d8b; }
+    .contact-btn { background: #795548; }
+    .social-btn { background: #1877f2; }
+
+    .signal-live {
+      background: #222;
+      border: 1px solid #555;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 20px auto;
     }
 
-    .admin-btn { background-color: #007bff; color: #fff; }
-    .login-btn { background-color: #28a745; color: #fff; }
-    .logout-btn { background-color: #dc3545; color: #fff; }
-
-    .band3  { background-color: #3399ff; color: #fff; }
-    .band28 { background-color: #66cc66; color: #fff; }
-    .band40 { background-color: #ff9933; color: #fff; }
-    .band41 { background-color: #cc33ff; color: #fff; }
-
-    .imei-box input, .search-box input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-      border: none;
-    }
-
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      border: none;
-      background-color: #00ffc3;
-      color: #000;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .copy-container {
-      margin-top: 10px;
+    #signal-info {
+      font-size: 15px;
+      line-height: 1.6;
     }
 
     footer {
-      margin-top: 50px;
-      font-size: 13px;
-      color: #888;
-    }
-
-    /* Signal Bar */
-    .signal-bar {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-
-    .bar {
-      display: inline-block;
-      width: 8px;
-      margin: 0 2px;
-      background-color: #00ffc3;
-      animation: pulse 1s infinite alternate;
-    }
-
-    .bar:nth-child(1) { height: 10px; animation-delay: 0s; }
-    .bar:nth-child(2) { height: 16px; animation-delay: 0.2s; }
-    .bar:nth-child(3) { height: 22px; animation-delay: 0.4s; }
-    .bar:nth-child(4) { height: 28px; animation-delay: 0.6s; }
-    .bar:nth-child(5) { height: 34px; animation-delay: 0.8s; }
-
-    @keyframes pulse {
-      0%   { opacity: 0.4; }
-      100% { opacity: 1; }
+      margin-top: 40px;
+      font-size: 14px;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
 
-  <h1>BJC BANDLOCK TOOL</h1>
-  <h5>Login first before bandlocking. Click LOGIN below.</h5>
-
-  <div class="signal-bar">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
+  <h1>📡 BJC BANDLOCK TOOL</h1>
+  <h5>Login first before using band lock. Click LOGIN below.</h5>
 
   <div class="section">
     <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGIN&username=YWRtaW4=&password=YWRtaW4=" target="_blank" class="btn admin-btn">Admin Login</a>
@@ -137,20 +83,9 @@
     <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,0,1,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band41">BAND 41</a>
   </div>
 
-  <div class="section imei-box">
-    <input type="text" id="imei-output" placeholder="Generated IMEI will appear here" readonly />
-    <button onclick="generateIMEI()">Generate IMEI</button>
-    <div class="copy-container">
-      <input type="checkbox" id="copy-checkbox" checked />
-      <label for="copy-checkbox">Auto copy to clipboard</label>
-    </div>
-  </div>
-
-  <div class="section search-box">
-    <form action="https://www.google.com/search" method="GET" target="_blank">
-      <input type="text" name="q" placeholder="Search Google..." required />
-      <button type="submit" class="btn login-btn">🔍 Search</button>
-    </form>
+  <div class="section signal-live">
+    <h3>📶 Signal Information</h3>
+    <div id="signal-info">Loading...</div>
   </div>
 
   <div class="section">
@@ -160,19 +95,33 @@
   </div>
 
   <footer>
-    owner by Junjun Cruz &copy; 2025 BJC Tool. All rights reserved.
+    Owned by Junjun Cruz &copy; 2025 BJC Tool. All rights reserved.
   </footer>
 
-<script>
-  function generateIMEI() {
-    let base = "86345605";
-    let random = Math.floor(100000 + Math.random() * 899999).toString();
-    let imei = base + random;
-    document.getElementById("imei-output").value = imei;
-    if (document.getElementById("copy-checkbox").checked) {
-      navigator.clipboard.writeText(imei);
+  <script>
+    async function loadSignalInfo() {
+      try {
+        const res = await fetch("http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=signalbar,lte_rsrp,lte_rsrq,lte_rssi,lte_sinr,network_type,cell_id,wan_ipaddr");
+        const data = await res.json();
+        const html = `
+          <strong>Signal Bar:</strong> ${data.signalbar}/5<br/>
+          <strong>RSRP:</strong> ${data.lte_rsrp} dBm<br/>
+          <strong>RSRQ:</strong> ${data.lte_rsrq} dB<br/>
+          <strong>RSSI:</strong> ${data.lte_rssi} dBm<br/>
+          <strong>SINR:</strong> ${data.lte_sinr} dB<br/>
+          <strong>Network Type:</strong> ${data.network_type}<br/>
+          <strong>Cell ID:</strong> ${data.cell_id}<br/>
+          <strong>WAN IP:</strong> ${data.wan_ipaddr}
+        `;
+        document.getElementById("signal-info").innerHTML = html;
+      } catch (err) {
+        document.getElementById("signal-info").innerHTML = "❌ Cannot fetch signal info. Make sure you're connected to ZLT S10G.";
+      }
     }
-  }
-</script>
+
+    loadSignalInfo();
+    setInterval(loadSignalInfo, 10000); // refresh every 10 sec
+  </script>
+
 </body>
 </html>
