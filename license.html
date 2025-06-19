@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Enter License</title>
+</head>
+<body style="text-align:center; font-family:sans-serif; margin-top:40px;">
+  <h2>Enter License Key</h2>
+  <input type="text" id="key" placeholder="Enter your license key" />
+  <br><br>
+  <button onclick="verifyLicense()">Submit</button>
+
+  <script>
+    function verifyLicense() {
+      const key = document.getElementById("key").value;
+      if (key === "BJC-VALID-2025") {
+        localStorage.setItem("license_verified", "true");
+        window.location.href = "https://bjchack.github.io/zlts10g/ksklalaanskbands.html";
+      } else {
+        alert("❌ Invalid License Key");
+      }
+    }
+  </script>
+</body>
+</html>
