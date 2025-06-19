@@ -1,0 +1,4 @@
+gitpush.sh
+*.env
+*.log
+*.bak
