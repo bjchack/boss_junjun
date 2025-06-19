@@ -4,76 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BJC Bandlocking Tool</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    .signal-box {
       background: #111;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
+      color: #0f0;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #0f0;
+      border-radius: 8px;
+      font-family: monospace;
     }
-
-    h1 {
-      color: #4fc3f7;
-    }
-
-    .section {
-      margin: 20px auto;
-    }
-
-    .btn, .band-btn {
-      display: inline-block;
+    .band-btn {
+      padding: 10px;
       margin: 5px;
-      padding: 10px 15px;
-      border-radius: 5px;
+      display: inline-block;
+      font-weight: bold;
+      border-radius: 6px;
       color: white;
       text-decoration: none;
-      font-weight: bold;
     }
-
-    .admin-btn { background: #f06292; }
-    .login-btn { background: #64b5f6; }
-    .logout-btn { background: #ff8a65; }
-
-    .band3 { background: #2196f3; }
-    .band28 { background: #4caf50; }
-    .band40 { background: #ff5722; }
-    .band41 { background: #9c27b0; }
-
-    .about-btn { background: #607d8b; }
-    .contact-btn { background: #795548; }
-    .social-btn { background: #1877f2; }
-
-    .signal-live {
-      background: #222;
-      border: 1px solid #555;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: 20px auto;
-    }
-
-    #signal-info {
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #aaa;
-    }
+    .band3 { background-color: #1976d2; }
+    .band28 { background-color: #388e3c; }
+    .band40 { background-color: #f57c00; }
+    .band41 { background-color: #8e24aa; }
   </style>
 </head>
 <body>
 
-  <h1>📡 BJC BANDLOCK TOOL</h1>
-  <h5>Login first before using band lock. Click LOGIN below.</h5>
+  <h1>BJC BANDLOCK TOOL</h1>
+  <h5>Login first before bandlocking. Click LOGIN below.</h5>
 
   <div class="section">
     <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGIN&username=YWRtaW4=&password=YWRtaW4=" target="_blank" class="btn admin-btn">Admin Login</a>
     <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGIN&username=dXNlcg%3D%3D&password=QGwwM2UxdDM%3D" target="_blank" class="btn login-btn">User Login</a>
     <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGOUT" target="_blank" class="btn logout-btn">Logout</a>
+  </div>
+
+  <div class="section signal-box" id="signal-info">
+    📶 Signal Info: Loading...
   </div>
 
   <div class="section band-btns">
@@ -83,45 +52,39 @@
     <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,0,1,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band41">BAND 41</a>
   </div>
 
-  <div class="section signal-live">
-    <h3>📶 Signal Information</h3>
-    <div id="signal-info">Loading...</div>
-  </div>
-
-  <div class="section">
-    <a href="about.html" class="btn about-btn">About</a>
-    <a href="tel:+639302951895" class="btn contact-btn">📞 Contact</a>
-    <a href="https://www.facebook.com/share/1BVUWJiauV/" target="_blank" class="btn social-btn">📘 Facebook</a>
-  </div>
-
   <footer>
-    Owned by Junjun Cruz &copy; 2025 BJC Tool. All rights reserved.
+    owner by Junjun Cruz &copy; 2025 BJC Tool. All rights reserved.
   </footer>
 
-  <script>
-    async function loadSignalInfo() {
-      try {
-        const res = await fetch("http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=signalbar,lte_rsrp,lte_rsrq,lte_rssi,lte_sinr,network_type,cell_id,wan_ipaddr");
-        const data = await res.json();
-        const html = `
-          <strong>Signal Bar:</strong> ${data.signalbar}/5<br/>
-          <strong>RSRP:</strong> ${data.lte_rsrp} dBm<br/>
-          <strong>RSRQ:</strong> ${data.lte_rsrq} dB<br/>
-          <strong>RSSI:</strong> ${data.lte_rssi} dBm<br/>
-          <strong>SINR:</strong> ${data.lte_sinr} dB<br/>
-          <strong>Network Type:</strong> ${data.network_type}<br/>
-          <strong>Cell ID:</strong> ${data.cell_id}<br/>
-          <strong>WAN IP:</strong> ${data.wan_ipaddr}
-        `;
-        document.getElementById("signal-info").innerHTML = html;
-      } catch (err) {
-        document.getElementById("signal-info").innerHTML = "❌ Cannot fetch signal info. Make sure you're connected to ZLT S10G.";
-      }
-    }
+<script>
+async function loadSignalInfo() {
+  try {
+    // Auto-login as admin
+    await fetch("http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGIN&username=YWRtaW4=&password=YWRtaW4=");
 
-    loadSignalInfo();
-    setInterval(loadSignalInfo, 10000); // refresh every 10 sec
-  </script>
+    // Fetch signal data
+    const res = await fetch("http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=signalbar,lte_rsrp,lte_rsrq,lte_rssi,lte_sinr,network_type,cell_id,wan_ipaddr");
+    const data = await res.json();
+
+    const html = `
+      📶 <strong>Signal Bar:</strong> ${data.signalbar}/5<br/>
+      📡 <strong>RSRP:</strong> ${data.lte_rsrp} dBm<br/>
+      🔊 <strong>RSRQ:</strong> ${data.lte_rsrq} dB<br/>
+      📻 <strong>RSSI:</strong> ${data.lte_rssi} dBm<br/>
+      📈 <strong>SINR:</strong> ${data.lte_sinr} dB<br/>
+      🌐 <strong>Network Type:</strong> ${data.network_type}<br/>
+      🛰️ <strong>Cell ID:</strong> ${data.cell_id}<br/>
+      🧭 <strong>WAN IP:</strong> ${data.wan_ipaddr}
+    `;
+    document.getElementById("signal-info").innerHTML = html;
+  } catch (err) {
+    document.getElementById("signal-info").innerHTML = "❌ Cannot fetch signal info. Make sure you're connected to ZLT S10G.";
+  }
+}
+
+// Load signal info on page load
+loadSignalInfo();
+</script>
 
 </body>
 </html>
