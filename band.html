@@ -10,24 +10,20 @@
       background: #111;
       color: #0f0;
       padding: 15px;
-      margin: 10px 0;
-      border: 1px solid #0f0;
-      border-radius: 8px;
+      border-radius: 10px;
+      margin: 20px auto;
+      width: 95%;
+      max-width: 500px;
       font-family: monospace;
     }
-    .band-btn {
-      padding: 10px;
-      margin: 5px;
-      display: inline-block;
-      font-weight: bold;
-      border-radius: 6px;
-      color: white;
-      text-decoration: none;
+    .signal-box h3 {
+      margin-top: 0;
+      color: #fff;
     }
-    .band3 { background-color: #1976d2; }
-    .band28 { background-color: #388e3c; }
-    .band40 { background-color: #f57c00; }
-    .band41 { background-color: #8e24aa; }
+    .signal-error {
+      color: red;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -40,16 +36,39 @@
     <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGIN&username=dXNlcg%3D%3D&password=QGwwM2UxdDM%3D" target="_blank" class="btn login-btn">User Login</a>
     <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGOUT" target="_blank" class="btn logout-btn">Logout</a>
   </div>
-
-  <div class="section signal-box" id="signal-info">
-    📶 Signal Info: Loading...
+ 
+  <div class="section band-btns">
+    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=4,0,0,0,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=1&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band3" style="background:#007bff;">BAND 3</a>
+    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,8,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band28" style="background:#28a745;">BAND 28</a>
+    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,128,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band40" style="background:#ffc107;">BAND 40</a>
+    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,0,1,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band41" style="background:#dc3545;">BAND 41</a>
   </div>
 
-  <div class="section band-btns">
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=4,0,0,0,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=1&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band3">BAND 3</a>
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,8,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band28">BAND 28</a>
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,128,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band40">BAND 40</a>
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,0,1,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band41">BAND 41</a>
+  <div class="signal-box" id="signalDisplay">
+    <h3>📶 Signal Information</h3>
+    <div id="signalContent">Fetching signal info...</div>
+  </div>
+
+  <div class="section imei-box">
+    <input type="text" id="imei-output" placeholder="Generated IMEI will appear here" readonly />
+    <button onclick="generateIMEI()">Generate IMEI</button>
+    <div class="copy-container">
+      <input type="checkbox" id="copy-checkbox" checked />
+      <label for="copy-checkbox">Auto copy to clipboard</label>
+    </div>
+  </div>
+
+  <div class="section search-box">
+    <form action="https://www.google.com/search" method="GET" target="_blank">
+      <input type="text" name="q" placeholder="Search Google..." required />
+      <button type="submit" class="btn login-btn">🔍 Search</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <a href="about.html" class="btn about-btn">About</a>
+    <a href="tel:+639302951895" class="btn contact-btn">📞 Contact</a>
+    <a href="https://www.facebook.com/share/1BVUWJiauV/" target="_blank" class="btn social-btn">📘 Facebook</a>
   </div>
 
   <footer>
@@ -57,33 +76,54 @@
   </footer>
 
 <script>
-async function loadSignalInfo() {
-  try {
-    // Auto-login as admin
-    await fetch("http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGIN&username=YWRtaW4=&password=YWRtaW4=");
+function fetchSignal() {
+  fetch("http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=lte_pci,rsrq,rsrp,cell_id,earfcn,rssi,sinr,plmn,network_type,network_provider,lockBand&multi_data=1")
+    .then(res => res.json())
+    .then(data => {
+      const html = `
+        RSRP: ${data.rsrp} dBm<br/>
+        RSRQ: ${data.rsrq} dB<br/>
+        SINR: ${data.sinr} dB<br/>
+        RSSI: ${data.rssi} dBm<br/>
+        Band: ${data.lockBand}<br/>
+        PCI: ${data.lte_pci}<br/>
+        Cell ID: ${data.cell_id}<br/>
+        Network: ${data.network_type} - ${data.network_provider}
+      `;
+      document.getElementById('signalContent').innerHTML = html;
+    })
+    .catch(() => {
+      document.getElementById('signalContent').innerHTML = `<span class="signal-error">❌ Cannot fetch signal info. Make sure you're connected to ZLT S10G.</span>`;
+    });
+}
+setInterval(fetchSignal, 5000);
+fetchSignal();
 
-    // Fetch signal data
-    const res = await fetch("http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=signalbar,lte_rsrp,lte_rsrq,lte_rssi,lte_sinr,network_type,cell_id,wan_ipaddr");
-    const data = await res.json();
-
-    const html = `
-      📶 <strong>Signal Bar:</strong> ${data.signalbar}/5<br/>
-      📡 <strong>RSRP:</strong> ${data.lte_rsrp} dBm<br/>
-      🔊 <strong>RSRQ:</strong> ${data.lte_rsrq} dB<br/>
-      📻 <strong>RSSI:</strong> ${data.lte_rssi} dBm<br/>
-      📈 <strong>SINR:</strong> ${data.lte_sinr} dB<br/>
-      🌐 <strong>Network Type:</strong> ${data.network_type}<br/>
-      🛰️ <strong>Cell ID:</strong> ${data.cell_id}<br/>
-      🧭 <strong>WAN IP:</strong> ${data.wan_ipaddr}
-    `;
-    document.getElementById("signal-info").innerHTML = html;
-  } catch (err) {
-    document.getElementById("signal-info").innerHTML = "❌ Cannot fetch signal info. Make sure you're connected to ZLT S10G.";
+function generateIMEI() {
+  const tac = "86898804";
+  const snr = String(Math.floor(1000000 + Math.random() * 8999999));
+  const partial = tac + snr;
+  const checkDigit = luhnCheckDigit(partial);
+  const imei = partial + checkDigit;
+  document.getElementById("imei-output").value = imei;
+  if (document.getElementById("copy-checkbox").checked) {
+    navigator.clipboard.writeText(imei);
   }
 }
-
-// Load signal info on page load
-loadSignalInfo();
+function luhnCheckDigit(input) {
+  let sum = 0;
+  let dbl = false;
+  for (let i = input.length - 1; i >= 0; i--) {
+    let d = parseInt(input.charAt(i));
+    if (dbl) {
+      d *= 2;
+      if (d > 9) d -= 9;
+    }
+    sum += d;
+    dbl = !dbl;
+  }
+  return (10 - (sum % 10)) % 10;
+}
 </script>
 
 </body>
