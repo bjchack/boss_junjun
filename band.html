@@ -19,6 +19,7 @@
     <div class="bar" id="b5"></div>
   </div>
   <div id="info">
+    <p id="status">Status: Connecting...</p>
     <p id="netType">NETWORK TYPE: --</p>
     <p id="rsrpEl">RSRP: --</p>
     <p id="sinrEl">SINR: --</p>
@@ -29,18 +30,25 @@
     const netType = document.getElementById('netType');
     const rsrpEl = document.getElementById('rsrpEl');
     const sinrEl = document.getElementById('sinrEl');
+    const statusText = document.getElementById('status');
 
-    // Default login (admin/admin)
     const USERNAME_B64 = 'YWRtaW4=';
     const PASSWORD_B64 = 'YWRtaW4=';
 
     async function modemLogin() {
-      await fetch('http://192.168.254.254/goform/goform_set_cmd_process', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `isTest=false&goformId=LOGIN&username=${USERNAME_B64}&password=${PASSWORD_B64}`
-      });
+      try {
+        const res = await fetch('http://192.168.254.254/goform/goform_set_cmd_process', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: `isTest=false&goformId=LOGIN&username=${USERNAME_B64}&password=${PASSWORD_B64}`
+        });
+        console.log("Login response:", await res.text());
+        statusText.textContent = "Status: Logged in.";
+      } catch (e) {
+        statusText.textContent = "Login failed";
+        console.error("Login error:", e);
+      }
     }
 
     async function getSignal() {
@@ -54,6 +62,7 @@
     async function refresh() {
       try {
         const d = await getSignal();
+        console.log("Signal data:", d);
         const barsCount = parseInt(d.signalbar) || 0;
         [...bars].forEach((b, i) => {
           b.className = 'bar' + (i < barsCount ? ' active' : '');
@@ -61,9 +70,12 @@
         netType.textContent = `NETWORK TYPE: ${d.network_type || '--'}`;
         rsrpEl.textContent = `RSRP: ${d.rsrp || '--'} dBm`;
         sinrEl.textContent = `SINR: ${d.sinr || '--'} dB`;
+        statusText.textContent = "Status: Data fetched.";
       } catch (e) {
+        console.error("Fetch error:", e);
+        statusText.textContent = "Error fetching data";
         [...bars].forEach(b => b.className = 'bar');
-        netType.textContent = `NETWORK TYPE: ERROR`;
+        netType.textContent = `NETWORK TYPE: --`;
         rsrpEl.textContent = `RSRP: --`;
         sinrEl.textContent = `SINR: --`;
       }
