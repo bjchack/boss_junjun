@@ -1,78 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>BJC Band-Lock Tool (local)</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<style>
-body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#111;color:#eee;text-align:center}
-h1{margin:20px 0;font-size:22px;color:#00e4ff}
-#status{margin:10px auto 20px;width:220px;padding:15px;background:#1b1b1b;border-radius:8px;box-shadow:0 0 8px #00e4ff}
-#bars{width:90px;height:20px;margin:8px auto 0;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFIAAABQCAMAAAD+N78LAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABf1BMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9vOheAAAAJHRSTlMAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyHpBG8AAAGkSURBVGje7ZvZcoMwDETHbg1JkGLS7P//XxF1JA5EhyZt23s2P31Bfkyle1mwCgOBwOBwOBwOBwOBwOBwOBwOBwOBwOBwOBwOBwMwD+J1d7t92IDJRytp0NsYQJdNfQeBFElYh4aUoWkl8o2B7KMckrRUDE2Yh4Z16eg8sVgWL1OyVNhZr7DwBwqXiR7Bw4IZkQTcbhrMH7cfuDq/Qe9eaEHrpv/lUzb6smg+B7NaIYSjk45Rw3roSMZ3RSFUOWJWamzfbPtumM6SzsaKpwg9Iy4xOub+PfNoGZ+asUuXE3xHGZJr7l7yRzJUsnGIbXtfA3gvokksJkcL0q5LliJke73k14s6gMrT8Iu+BtIdJXfTSyUvj6GNNepds1exoR49UtfV46XktSpaUrvHxxIxS2Aj+r0pz8st5Uumw7RPN3y2GV6n7iICj1cGfTtLfDPqfPqGrdcu69EwH4muV3vzp1IckgH0n9U3qsaQhJfouw+T+Y7dZ5GR+5IY1nvJv6VuWpUtN0v+YotNxHS49hU9v3lGo/xV8YPZp6iIbB+5O6AAA4nAfQ3QQCgcDgcDgcDgcDgcDgcDgcDgcDgcDgcDgcDgf8DvwCM5mQcPvha8gAAAABJRU5ErkJggg==') 0 0 no-repeat;background-size:90px 20px}
-#bars.level0{background-position:0 0}
-#bars.level1{background-position:0 -20px}
-#bars.level2{background-position:0 -40px}
-#bars.level3{background-position:0 -60px}
-#bars.level4{background-position:0 -80px}
-#bars.level5{background-position:0 -100px}
-small{display:block;color:#ccc;margin-top:5px;font-size:12px}
-.btn{display:inline-block;margin:12px 6px;padding:10px 18px;background:#00e4ff;color:#000;border-radius:6px;text-decoration:none;font-weight:bold}
-.band-btn{background:#444;color:#fff}
-footer{margin-top:30px;font-size:11px;color:#777}
-</style>
+  <title>ZLT S10G Signal Monitor</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    .bars { display: flex; justify-content: center; margin-bottom: 10px; }
+    .bar { width: 10px; height: 20px; margin: 2px; background: #ccc; transition: 0.3s; }
+    .bar.active { background: green; }
+  </style>
 </head>
 <body>
+  <h2>📶 ZLT S10G Signal Monitor</h2>
+  <div class="bars" id="bars">
+    <div class="bar" id="b1"></div>
+    <div class="bar" id="b2"></div>
+    <div class="bar" id="b3"></div>
+    <div class="bar" id="b4"></div>
+    <div class="bar" id="b5"></div>
+  </div>
+  <div id="info">
+    <p id="netType">NETWORK TYPE: --</p>
+    <p id="rsrpEl">RSRP: --</p>
+    <p id="sinrEl">SINR: --</p>
+  </div>
 
-<h1>BJC Band-Lock Tool</h1>
+  <script>
+    const bars = document.getElementById('bars').children;
+    const netType = document.getElementById('netType');
+    const rsrpEl = document.getElementById('rsrpEl');
+    const sinrEl = document.getElementById('sinrEl');
 
-<div id="status">
-   <div id="bars" class="level0"></div>
-   <small id="netType">---</small>
-   <small id="rsrp">RSRP: -- dBm</small>
-   <small id="sinr">SINR: -- dB</small>
-</div>
+    // Default login (admin/admin)
+    const USERNAME_B64 = 'YWRtaW4=';
+    const PASSWORD_B64 = 'YWRtaW4=';
 
-<a class="btn" href="http://192.168.254.254" target="_blank">Open Modem GUI</a>
+    async function modemLogin() {
+      await fetch('http://192.168.254.254/goform/goform_set_cmd_process', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `isTest=false&goformId=LOGIN&username=${USERNAME_B64}&password=${PASSWORD_B64}`
+      });
+    }
 
-<div style="margin:20px 0">
-   <a class="btn band-btn" href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=4,0,0,0,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=1&goformId=TZ_SET_LOCK_BAND" target="_blank">Band 3</a>
-   <a class="btn band-btn" href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,8,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank">Band 28</a>
-   <a class="btn band-btn" href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,128,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank">Band 40</a>
-   <a class="btn band-btn" href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,0,1,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank">Band 41</a>
-</div>
+    async function getSignal() {
+      const q = 'signalbar,network_type,rsrp,sinr';
+      const res = await fetch(`http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=${q}`, {
+        credentials: 'include'
+      });
+      return res.json();
+    }
 
-<footer>© 2025 Junjun Cruz | BJC Programming</footer>
+    async function refresh() {
+      try {
+        const d = await getSignal();
+        const barsCount = parseInt(d.signalbar) || 0;
+        [...bars].forEach((b, i) => {
+          b.className = 'bar' + (i < barsCount ? ' active' : '');
+        });
+        netType.textContent = `NETWORK TYPE: ${d.network_type || '--'}`;
+        rsrpEl.textContent = `RSRP: ${d.rsrp || '--'} dBm`;
+        sinrEl.textContent = `SINR: ${d.sinr || '--'} dB`;
+      } catch (e) {
+        [...bars].forEach(b => b.className = 'bar');
+        netType.textContent = `NETWORK TYPE: ERROR`;
+        rsrpEl.textContent = `RSRP: --`;
+        sinrEl.textContent = `SINR: --`;
+      }
+    }
 
-<script>
-/* === tiny poller every 5 s === */
-const bars = document.getElementById('bars');
-const netType = document.getElementById('netType');
-const rsrpEl  = document.getElementById('rsrp');
-const sinrEl  = document.getElementById('sinr');
-
-async function refresh(){
-  try{
-    /* modem JSON: add/remove fields if your firmware differs */
-    const q = "signalbar,network_type,rsrp,sinr";
-    const url = `http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=${q}`;
-    const d  = await fetch(url).then(r=>r.json());
-
-    /* 0-5 bars */
-    bars.className = 'level'+(d.signalbar||0);
-    netType.textContent = (d.network_type||'').toUpperCase();
-    rsrpEl.textContent  = `RSRP: ${d.rsrp||'--'} dBm`;
-    sinrEl.textContent  = `SINR: ${d.sinr||'--'} dB`;
-  }catch(e){
-    /* if modem unreachable */
-    bars.className='level0';
-    netType.textContent = 'NO LINK';
-    rsrpEl.textContent  = 'RSRP: --';
-    sinrEl.textContent  = 'SINR: --';
-  }
-}
-refresh();
-setInterval(refresh,5000);
-</script>
+    (async () => {
+      await modemLogin();
+      await refresh();
+      setInterval(refresh, 5000);
+    })();
+  </script>
 </body>
 </html>
