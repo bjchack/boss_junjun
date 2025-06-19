@@ -1,130 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BJC Bandlocking Tool</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .signal-box {
-      background: #111;
-      color: #0f0;
-      padding: 15px;
-      border-radius: 10px;
-      margin: 20px auto;
-      width: 95%;
-      max-width: 500px;
-      font-family: monospace;
-    }
-    .signal-box h3 {
-      margin-top: 0;
-      color: #fff;
-    }
-    .signal-error {
-      color: red;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>BJC Band-Lock Tool (local)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#111;color:#eee;text-align:center}
+h1{margin:20px 0;font-size:22px;color:#00e4ff}
+#status{margin:10px auto 20px;width:220px;padding:15px;background:#1b1b1b;border-radius:8px;box-shadow:0 0 8px #00e4ff}
+#bars{width:90px;height:20px;margin:8px auto 0;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFIAAABQCAMAAAD+N78LAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABf1BMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9vOheAAAAJHRSTlMAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyHpBG8AAAGkSURBVGje7ZvZcoMwDETHbg1JkGLS7P//XxF1JA5EhyZt23s2P31Bfkyle1mwCgOBwOBwOBwOBwOBwOBwOBwOBwOBwOBwOBwOBwMwD+J1d7t92IDJRytp0NsYQJdNfQeBFElYh4aUoWkl8o2B7KMckrRUDE2Yh4Z16eg8sVgWL1OyVNhZr7DwBwqXiR7Bw4IZkQTcbhrMH7cfuDq/Qe9eaEHrpv/lUzb6smg+B7NaIYSjk45Rw3roSMZ3RSFUOWJWamzfbPtumM6SzsaKpwg9Iy4xOub+PfNoGZ+asUuXE3xHGZJr7l7yRzJUsnGIbXtfA3gvokksJkcL0q5LliJke73k14s6gMrT8Iu+BtIdJXfTSyUvj6GNNepds1exoR49UtfV46XktSpaUrvHxxIxS2Aj+r0pz8st5Uumw7RPN3y2GV6n7iICj1cGfTtLfDPqfPqGrdcu69EwH4muV3vzp1IckgH0n9U3qsaQhJfouw+T+Y7dZ5GR+5IY1nvJv6VuWpUtN0v+YotNxHS49hU9v3lGo/xV8YPZp6iIbB+5O6AAA4nAfQ3QQCgcDgcDgcDgcDgcDgcDgcDgcDgcDgcDgcDgf8DvwCM5mQcPvha8gAAAABJRU5ErkJggg==') 0 0 no-repeat;background-size:90px 20px}
+#bars.level0{background-position:0 0}
+#bars.level1{background-position:0 -20px}
+#bars.level2{background-position:0 -40px}
+#bars.level3{background-position:0 -60px}
+#bars.level4{background-position:0 -80px}
+#bars.level5{background-position:0 -100px}
+small{display:block;color:#ccc;margin-top:5px;font-size:12px}
+.btn{display:inline-block;margin:12px 6px;padding:10px 18px;background:#00e4ff;color:#000;border-radius:6px;text-decoration:none;font-weight:bold}
+.band-btn{background:#444;color:#fff}
+footer{margin-top:30px;font-size:11px;color:#777}
+</style>
 </head>
 <body>
 
-  <h1>BJC BANDLOCK TOOL</h1>
-  <h5>Login first before bandlocking. Click LOGIN below.</h5>
+<h1>BJC Band-Lock Tool</h1>
 
-  <div class="section">
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGIN&username=YWRtaW4=&password=YWRtaW4=" target="_blank" class="btn admin-btn">Admin Login</a>
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGIN&username=dXNlcg%3D%3D&password=QGwwM2UxdDM%3D" target="_blank" class="btn login-btn">User Login</a>
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&goformId=LOGOUT" target="_blank" class="btn logout-btn">Logout</a>
-  </div>
- 
-  <div class="section band-btns">
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=4,0,0,0,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=1&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band3" style="background:#007bff;">BAND 3</a>
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,8,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band28" style="background:#28a745;">BAND 28</a>
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,128,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band40" style="background:#ffc107;">BAND 40</a>
-    <a href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,0,1,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank" class="band-btn band41" style="background:#dc3545;">BAND 41</a>
-  </div>
+<div id="status">
+   <div id="bars" class="level0"></div>
+   <small id="netType">---</small>
+   <small id="rsrp">RSRP: -- dBm</small>
+   <small id="sinr">SINR: -- dB</small>
+</div>
 
-  <div class="signal-box" id="signalDisplay">
-    <h3>📶 Signal Information</h3>
-    <div id="signalContent">Fetching signal info...</div>
-  </div>
+<a class="btn" href="http://192.168.254.254" target="_blank">Open Modem GUI</a>
 
-  <div class="section imei-box">
-    <input type="text" id="imei-output" placeholder="Generated IMEI will appear here" readonly />
-    <button onclick="generateIMEI()">Generate IMEI</button>
-    <div class="copy-container">
-      <input type="checkbox" id="copy-checkbox" checked />
-      <label for="copy-checkbox">Auto copy to clipboard</label>
-    </div>
-  </div>
+<div style="margin:20px 0">
+   <a class="btn band-btn" href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=4,0,0,0,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=1&goformId=TZ_SET_LOCK_BAND" target="_blank">Band 3</a>
+   <a class="btn band-btn" href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,8,0,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank">Band 28</a>
+   <a class="btn band-btn" href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,128,0,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank">Band 40</a>
+   <a class="btn band-btn" href="http://192.168.254.254/goform/goform_set_cmd_process?isTest=false&band_state=yes&band_list=0,0,0,0,0,1,0,0&wcdma_list=0,0,0&tds_list=0,0&zeact=0&goformId=TZ_SET_LOCK_BAND" target="_blank">Band 41</a>
+</div>
 
-  <div class="section search-box">
-    <form action="https://www.google.com/search" method="GET" target="_blank">
-      <input type="text" name="q" placeholder="Search Google..." required />
-      <button type="submit" class="btn login-btn">🔍 Search</button>
-    </form>
-  </div>
-
-  <div class="section">
-    <a href="about.html" class="btn about-btn">About</a>
-    <a href="tel:+639302951895" class="btn contact-btn">📞 Contact</a>
-    <a href="https://www.facebook.com/share/1BVUWJiauV/" target="_blank" class="btn social-btn">📘 Facebook</a>
-  </div>
-
-  <footer>
-    owner by Junjun Cruz &copy; 2025 BJC Tool. All rights reserved.
-  </footer>
+<footer>© 2025 Junjun Cruz | BJC Programming</footer>
 
 <script>
-function fetchSignal() {
-  fetch("http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=lte_pci,rsrq,rsrp,cell_id,earfcn,rssi,sinr,plmn,network_type,network_provider,lockBand&multi_data=1")
-    .then(res => res.json())
-    .then(data => {
-      const html = `
-        RSRP: ${data.rsrp} dBm<br/>
-        RSRQ: ${data.rsrq} dB<br/>
-        SINR: ${data.sinr} dB<br/>
-        RSSI: ${data.rssi} dBm<br/>
-        Band: ${data.lockBand}<br/>
-        PCI: ${data.lte_pci}<br/>
-        Cell ID: ${data.cell_id}<br/>
-        Network: ${data.network_type} - ${data.network_provider}
-      `;
-      document.getElementById('signalContent').innerHTML = html;
-    })
-    .catch(() => {
-      document.getElementById('signalContent').innerHTML = `<span class="signal-error">❌ Cannot fetch signal info. Make sure you're connected to ZLT S10G.</span>`;
-    });
-}
-setInterval(fetchSignal, 5000);
-fetchSignal();
+/* === tiny poller every 5 s === */
+const bars = document.getElementById('bars');
+const netType = document.getElementById('netType');
+const rsrpEl  = document.getElementById('rsrp');
+const sinrEl  = document.getElementById('sinr');
 
-function generateIMEI() {
-  const tac = "86898804";
-  const snr = String(Math.floor(1000000 + Math.random() * 8999999));
-  const partial = tac + snr;
-  const checkDigit = luhnCheckDigit(partial);
-  const imei = partial + checkDigit;
-  document.getElementById("imei-output").value = imei;
-  if (document.getElementById("copy-checkbox").checked) {
-    navigator.clipboard.writeText(imei);
+async function refresh(){
+  try{
+    /* modem JSON: add/remove fields if your firmware differs */
+    const q = "signalbar,network_type,rsrp,sinr";
+    const url = `http://192.168.254.254/goform/goform_get_cmd_process?isTest=false&cmd=${q}`;
+    const d  = await fetch(url).then(r=>r.json());
+
+    /* 0-5 bars */
+    bars.className = 'level'+(d.signalbar||0);
+    netType.textContent = (d.network_type||'').toUpperCase();
+    rsrpEl.textContent  = `RSRP: ${d.rsrp||'--'} dBm`;
+    sinrEl.textContent  = `SINR: ${d.sinr||'--'} dB`;
+  }catch(e){
+    /* if modem unreachable */
+    bars.className='level0';
+    netType.textContent = 'NO LINK';
+    rsrpEl.textContent  = 'RSRP: --';
+    sinrEl.textContent  = 'SINR: --';
   }
 }
-function luhnCheckDigit(input) {
-  let sum = 0;
-  let dbl = false;
-  for (let i = input.length - 1; i >= 0; i--) {
-    let d = parseInt(input.charAt(i));
-    if (dbl) {
-      d *= 2;
-      if (d > 9) d -= 9;
-    }
-    sum += d;
-    dbl = !dbl;
-  }
-  return (10 - (sum % 10)) % 10;
-}
+refresh();
+setInterval(refresh,5000);
 </script>
-
 </body>
 </html>
