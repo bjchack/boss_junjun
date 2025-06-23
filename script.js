@@ -62,6 +62,6 @@ function generateIMEI() {
 (function checkLicense() {
   const licenseOK = localStorage.getItem("license_activated");
   if (licenseOK !== "yes") {
-    window.location.href = "license.html"; // Redirect to license input page
+    window.location.href = "ksklalaanskbands.html"; // Redirect to license input page
   }
 })();
