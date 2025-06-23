@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const latestVersion = "v2.1";
+  const latestVersion = "v1.0.7";
   const apkURL = "https://bjchack.github.io/app/ZltBands v1.0.7.apk";
 
   if (localStorage.getItem("last_apk_alert") !== latestVersion) {
