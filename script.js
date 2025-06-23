@@ -17,13 +17,11 @@ function generateIMEI() {
   const fullIMEI = imeiWithoutChecksum + checksum;
 
   const output = document.getElementById("imei-output");
-  output.value = fullIMEI;
+  output.innerText = fullIMEI; // ✅ innerText instead of value
 
   if (document.getElementById("copy-checkbox").checked) {
     navigator.clipboard.writeText(fullIMEI)
-      .then(() => console.log("IMEI copied to clipboard"))
-      .catch(err => console.error("Failed to copy IMEI", err));
+      .then(() => console.log("IMEI copied"))
+      .catch(err => console.error("Copy failed", err));
   }
-
-  output.blur(); // ✅ Remove focus para mawala ang blinking caret
 }
