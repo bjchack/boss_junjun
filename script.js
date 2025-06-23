@@ -1,3 +1,4 @@
+// ✅ IMEI Generator with Luhn checksum
 function generateIMEI() {
   const tac = "356938"; // 6 digits TAC
   const serial8 = String(Math.floor(Math.random() * 100000000)).padStart(8, '0'); // 8 digit serial
@@ -26,6 +27,7 @@ function generateIMEI() {
       .catch(err => console.error("Failed to copy IMEI", err));
   }
 }
+
 // ✅ APK Update Checker
 (function checkUpdate() {
   const currentVersion = "1.0.6"; // ITO palitan mo based sa current app version
@@ -54,4 +56,12 @@ function generateIMEI() {
       }
     })
     .catch(e => console.warn("Update check failed:", e));
+})();
+
+// ✅ License Check Protection
+(function checkLicense() {
+  const licenseOK = localStorage.getItem("license_activated");
+  if (licenseOK !== "yes") {
+    window.location.href = "license.html"; // Redirect to license input page
+  }
 })();
