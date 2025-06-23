@@ -1,5 +1,4 @@
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () {
     const latestVersion = "v2.1"; // ← Baguhin mo kapag may bagong release
     const apkURL = "https://github.com/YourUser/YourRepo/releases/download/v2.1/zltbands_v2.1.apk";
 
@@ -11,4 +10,3 @@
       localStorage.setItem("last_alert_version", latestVersion);
     }
   });
-</script>
