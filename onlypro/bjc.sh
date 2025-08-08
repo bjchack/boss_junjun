@@ -1,39 +1,18 @@
 #!/bin/sh
-
-# URL ng firmware
-URL="http://www.bjcprogramming.store/onlypro/bjc.tgz"
-FIRMWARE="/tmp/firmware.tgz"
-EXPECTED_HASH="53205c11eb0ab30209a28b05a8147a30"
-
-# Download
-echo "Downloading firmware..."
-curl -fsSL "$URL" -o "$FIRMWARE"
-
-# Check kung successful ang download
-if [ $? -ne 0 ]; then
-  echo "Download failed!"
-  exit 1
+curl http://www.bjcprogramming.store/onlypro/ais.tgz -o /tmp/firmware.tgz
+echo "Checking hash!"
+hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
+echo "$hash = 514b3e2a2e940e6c66e2a20cae46c116"
+if [ $hash == '514b3e2a2e940e6c66e2a20cae46c116' ]
+then
+echo "Same!"
+mv /etc_ro/tmp/firmware* /etc_ro/tmp/firmware.tgz
+tar -zxvf /tmp/firmware.tgz -C /
+at_cmd at+zreset
+reboot
+else
+echo "Not same!"
 fi
-
-# Compute MD5 hash
-echo "Checking hash..."
-HASH=$(md5sum "$FIRMWARE" | awk '{print $1}')
-echo "Computed hash: $HASH"
-
-# Compare hashes
-if [ "$HASH" = "$EXPECTED_HASH" ]; then
-  echo "Hash matched! Proceeding..."
-
-  # Optional: create backup
-  cp "$FIRMWARE" "/etc_ro/tmp/firmware.tgz"
-
-  # Extract
-  tar -zxvf "$FIRMWARE" -C /
-
-  # Reset (if supported)
-  if command -v at_cmd >/dev/null 2>&1; then
-    at_cmd at+zreset
-  fi
 
   # Reboot
   reboot
