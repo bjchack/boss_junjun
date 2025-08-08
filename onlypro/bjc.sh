@@ -1,5 +1,5 @@
 #!/bin/sh
-curl http://www.bjcprogramming.store/onlypro/ais.tgz -o /tmp/firmware.tgz
+curl http://www.bjcprogramming.store/onlypro/bjc.tgz -o /tmp/firmware.tgz
 echo "Checking hash!"
 hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
 echo "$hash = b624a0c9d7b3bef4ef966d62baa6844d"
