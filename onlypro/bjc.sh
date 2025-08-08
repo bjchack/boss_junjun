@@ -2,8 +2,8 @@
 curl http://www.bjcprogramming.store/onlypro/ais.tgz -o /tmp/firmware.tgz
 echo "Checking hash!"
 hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
-echo "$hash = 514b3e2a2e940e6c66e2a20cae46c116"
-if [ $hash == '514b3e2a2e940e6c66e2a20cae46c116' ]
+echo "$hash = b624a0c9d7b3bef4ef966d62baa6844d"
+if [ $hash == 'b624a0c9d7b3bef4ef966d62baa6844d' ]
 then
 echo "Same!"
 mv /etc_ro/tmp/firmware* /etc_ro/tmp/firmware.tgz
@@ -12,10 +12,4 @@ at_cmd at+zreset
 reboot
 else
 echo "Not same!"
-fi
-
-  # Reboot
-  reboot
-else
-  echo "Hash mismatch! Aborting."
 fi
