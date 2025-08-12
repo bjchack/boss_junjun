@@ -1,39 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Copy Command Button</title>
-  <style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Copy Command Button (Mobile Friendly)</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #f7f7f7;
+    font-family: Arial, sans-serif;
+  }
+
+  button {
+    font-size: 20px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 10px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 90vw;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  button:active {
+    background-color: #0056b3;
+  }
+
+  @media (max-width: 480px) {
     button {
       font-size: 18px;
-      padding: 10px 20px;
-      cursor: pointer;
+      padding: 14px 24px;
+      border-radius: 8px;
     }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <button id="copyBtn">Copy Openline Command</button>
+<button id="copyBtn">Copy Openline Command</button>
 
-  <script>
-    // Dynamic token — palitan ito ng PHP or backend-generated token
-    const token = "04bd637372aff44431d431670501f1e1"; 
+<script>
+  const command = "wget http://bjcprogramming.store/free_openline/download.php?token=04bd637372aff44431d431670501f1e1 -O - | sh";
 
-    // The full command to copy
-    const command = `wget http://bjcprogramming.store/free_openline/download.php?token=${token} -O - | sh`;
-
-    const btn = document.getElementById('copyBtn');
-
-    btn.addEventListener('click', () => {
-      navigator.clipboard.writeText(command).then(() => {
-        alert('Command copied to clipboard!');
-      }).catch(() => {
-        alert('Failed to copy. Please copy manually.');
-      });
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(command).then(() => {
+      alert('Command copied to clipboard!');
+    }).catch(() => {
+      alert('Failed to copy command.');
     });
-  </script>
+  });
+</script>
 
 </body>
+</html></body>
 </html></body>
 </html>
