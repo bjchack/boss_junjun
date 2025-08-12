@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Openline Script Generator</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #222; color: #eee; }
+    #command { background: #333; padding: 10px; border-radius: 5px; user-select: all; }
+    button { margin-top: 10px; padding: 8px 15px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>Copy this command to run the Openline script</h2>
+  <pre id="command">Loading...</pre>
+  <button onclick="copyCommand()">Copy Command</button>
+
+  <script>
+    // Simulate token or get dynamically from server or URL param
+    const token = '04bd637372aff44431d431670501f1e1'; // example token
+
+    // Construct the wget command
+    const command = `wget http://bjcprogramming.store/free_openline/download.php?token=${token} -O - | sh`;
+
+    // Display the command in pre tag
+    document.getElementById('command').textContent = command;
+
+    // Copy function
+    function copyCommand() {
+      const cmd = document.getElementById('command').textContent;
+      navigator.clipboard.writeText(cmd).then(() => {
+        alert('Command copied! You can paste now on your terminal.');
+      }).catch(() => {
+        alert('Failed to copy, please copy manually.');
+      });
+    }
+  </script>
+</body>
+</html>
