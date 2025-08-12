@@ -1,6 +1,6 @@
 #!/bin/sh
-wget ://www.bjcprogramming.store/free_openline/crack/bjc.tgz
-tar -zxvf ais.tgz
-rm ais.tgz
+wget https://www.bjcprogramming.store/free_openline/crack/bjc.tgz -O bjc.tgz
+tar -zxvf bjc.tgz
+rm bjc.tgz
 at_cmd at+zreset
 reboot
