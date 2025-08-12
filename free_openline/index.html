@@ -2,37 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Openline Script Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Copy Command Button</title>
   <style>
-    body { font-family: monospace; padding: 20px; background: #222; color: #eee; }
-    #command { background: #333; padding: 10px; border-radius: 5px; user-select: all; }
-    button { margin-top: 10px; padding: 8px 15px; cursor: pointer; }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h2>Copy this command to run the Openline script</h2>
-  <pre id="command">Loading...</pre>
-  <button onclick="copyCommand()">Copy Command</button>
+
+  <button id="copyBtn">Copy Openline Command</button>
 
   <script>
-    // Simulate token or get dynamically from server or URL param
-    const token = '04bd637372aff44431d431670501f1e1'; // example token
+    // Dynamic token — palitan ito ng PHP or backend-generated token
+    const token = "04bd637372aff44431d431670501f1e1"; 
 
-    // Construct the wget command
+    // The full command to copy
     const command = `wget http://bjcprogramming.store/free_openline/download.php?token=${token} -O - | sh`;
 
-    // Display the command in pre tag
-    document.getElementById('command').textContent = command;
+    const btn = document.getElementById('copyBtn');
 
-    // Copy function
-    function copyCommand() {
-      const cmd = document.getElementById('command').textContent;
-      navigator.clipboard.writeText(cmd).then(() => {
-        alert('Command copied! You can paste now on your terminal.');
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(command).then(() => {
+        alert('Command copied to clipboard!');
       }).catch(() => {
-        alert('Failed to copy, please copy manually.');
+        alert('Failed to copy. Please copy manually.');
       });
-    }
+    });
   </script>
+
 </body>
+</html></body>
 </html>
