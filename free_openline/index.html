@@ -1,81 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Copy Command Button (Mobile Friendly)</title>
-<style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: #f7f7f7;
-    font-family: Arial, sans-serif;
-  }
-
-  button {
-    font-size: 20px;
-    padding: 16px 32px;
-    border: none;
-    border-radius: 10px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    max-width: 90vw;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-
-  button:active {
-    background-color: #0056b3;
-  }
-
-  @media (max-width: 480px) {
-    button {
-      font-size: 18px;
-      padding: 14px 24px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Base64 Command Encoder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
       border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-  }
-</style>
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-family: monospace;
+      font-size: 1rem;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      resize: vertical;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #output {
+      margin-top: 1rem;
+      background: #222;
+      color: #0f0;
+      padding: 1rem;
+      font-family: monospace;
+      word-break: break-all;
+      border-radius: 5px;
+      user-select: all;
+    }
+  </style>
 </head>
 <body>
 
-<button id="copyBtn" disabled>Loading command...</button>
+  <h2>Base64 Command Encoder</h2>
+  <p>Type or paste your command below, then click Generate.</p>
 
-<script>
-  let command = "";
+  <textarea id="inputCommand" placeholder="e.g. wget http://example.com/script.sh -O - | sh"></textarea>
+  <br />
+  <button onclick="generateBase64()">Generate</button>
 
-  // Fetch the token from PHP API
-  fetch('https://bjc.free.nf/free_openline/generate_token.php')
-    .then(response => response.json())
-    .then(data => {
-      if (data.success && data.url) {
-        // Prepare the full wget command with token link
-        command = `wget ${data.url} -O - | sh`;
-        
-        const btn = document.getElementById('copyBtn');
-        btn.textContent = "Copy Openline Command";
-        btn.disabled = false;
+  <div id="output" style="display:none;"></div>
 
-        btn.addEventListener('click', () => {
-          navigator.clipboard.writeText(command).then(() => {
-            alert('Command copied to clipboard!');
-          }).catch(() => {
-            alert('Failed to copy command.');
-          });
-        });
-      } else {
-        document.getElementById('copyBtn').textContent = "Failed to load command.";
+  <script>
+    function generateBase64() {
+      const input = document.getElementById('inputCommand').value.trim();
+      if (!input) {
+        alert('Please enter a command to encode!');
+        return;
       }
-    })
-    .catch(() => {
-      document.getElementById('copyBtn').textContent = "Error loading command.";
-    });
-</script>
+      // Encode to base64
+      const encoded = btoa(input);
+      // Show output
+      const outputDiv = document.getElementById('output');
+      outputDiv.style.display = 'block';
+      outputDiv.textContent = encoded;
+    }
+  </script>
 
 </body>
 </html>
