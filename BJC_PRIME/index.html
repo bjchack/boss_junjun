@@ -1,161 +1,313 @@
 <!doctype html>
-<html lang="en">
+<html lang="tl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BJC PRIME — Coming Soon</title>
-  <meta name="description" content="BJC PRIME — HD movies & series. Available on Android and Desktop. License activation required for premium features." />
+  <title>BJC PRIME — Home</title>
+  <meta name="description" content="BJC PRIME — Streaming movies. Android app coming soon. Buy license: m.me/bossjunjun09" />
   <style>
-    :root{--accent:#ff5c5c;--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2}
+    :root{
+      --bg:#071025; --panel:#0b1220; --muted:#9aa4b2; --accent:#ff5c5c; --glass: rgba(255,255,255,0.03);
+    }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#071022 0%, #0f1724 100%);color:#e6eef6}
-    .wrap{max-width:980px;margin:28px auto;padding:20px}
-    header{display:flex;gap:16px;align-items:center}
-    .logo{width:64px;height:64px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700}
-    h1{margin:0;font-size:22px}
-    p.lead{color:var(--muted);margin:6px 0 18px}
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-    .trailer{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px}
-    .trailer iframe{position:absolute;left:0;top:0;width:100%;height:100%}
-    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-    .btn{display:inline-block;background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#071025 0%, #06111a 100%);color:#eaf2ff}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:20px auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800}
+    nav{display:flex;gap:10px;align-items:center}
+    .nav-btn{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .hero{margin-top:16px;border-radius:12px;overflow:hidden;background:var(--panel);display:flex;gap:18px;align-items:center}
+    .hero-left{flex:1;padding:28px}
+    .hero-right{width:420px;min-height:240px;background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05));display:flex;align-items:center;justify-content:center}
+    .hero h1{margin:0;font-size:28px}
+    .lead{color:var(--muted);margin-top:8px}
+    .cta-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;border:0;cursor:pointer}
     .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .covers{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+    .poster{background:var(--glass);border-radius:8px;overflow:hidden;position:relative;cursor:pointer}
+    .poster img{width:100%;height:220px;object-fit:cover;display:block}
+    .poster .title{padding:8px 10px;font-weight:700;color:#fff}
+    .section{margin-top:22px}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px}
+    .movies-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .movie-card{background:var(--panel);border-radius:8px;overflow:hidden}
+    .movie-card img{width:100%;height:160px;object-fit:cover;display:block}
+    .movie-card .info{padding:10px}
     .small{font-size:13px;color:var(--muted)}
-    .downloads{display:flex;flex-direction:column;gap:8px}
-    .license{margin-top:10px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)}
-    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center;line-height:20px}
-    @media(max-width:880px){.grid{grid-template-columns:1fr} .wrap{padding:12px}}
+    footer{margin-top:30px;color:var(--muted);font-size:13px;text-align:center;padding-bottom:40px}
+    /* popup menu */
+    .overlay{position:fixed;inset:0;background:rgba(2,6,12,0.6);display:none;align-items:center;justify-content:center;z-index:60}
+    .menu-modal{width:320px;background:var(--panel);padding:14px;border-radius:12px}
+    .menu-modal h3{margin:0 0 8px 0}
+    .menu-list{display:flex;flex-direction:column;gap:8px}
+    .menu-item{padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+    /* license modal */
+    .lic-modal{width:420px;padding:14px;border-radius:10px;background:var(--panel)}
+    /* responsive */
+    @media(max-width:980px){
+      .hero{flex-direction:column}
+      .hero-right{width:100%}
+      .covers{grid-template-columns:repeat(2,1fr)}
+      .movies-grid{grid-template-columns:repeat(2,1fr)}
+      nav{display:none}
+    }
+    @media(max-width:520px){
+      .covers{grid-template-columns:repeat(1,1fr)}
+      .movies-grid{grid-template-columns:1fr}
+      .hero h1{font-size:20px}
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div class="logo">BJC</div>
-      <div>
-        <h1>BJC PRIME — COMING SOON</h1>
-        <p class="lead">Knights of the Zodiac — HD streaming. Android & Desktop support. Activate license to unlock premium.</p>
+      <div class="brand">
+        <div class="logo">BJC</div>
+        <div>
+          <div style="font-weight:800">BJC PRIME</div>
+          <div class="small">High-quality movies • Android app coming soon</div>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav-btn" id="open-menu">Menu</button>
+        <a class="nav-btn" href="index.htm">Home</a>
+        <button class="nav-btn" id="open-license">Buy License</button>
+        <a class="nav-btn" href="watch.php" title="Watch online">Watch</a>
+        <a class="nav-btn" href="index.htm#download" title="Download app">Download</a>
+      </nav>
+
+      <div style="display:flex;gap:8px;align-items:center">
+        <a class="nav-btn" href="https://www.facebook.com/bossjunjun09" target="_blank">FB</a>
+        <a class="nav-btn" href="https://m.me/bossjunjun09" target="_blank">Message</a>
       </div>
     </header>
 
-    <main class="grid">
-      <section class="card">
-        <div class="trailer">
-          <iframe src="https://www.youtube.com/embed/Sko0o_KoBHY" 
-            title="Knights of the Zodiac - Trailer" frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen></iframe>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Knights of the Zodiac — Trailer</h1>
+        <div class="lead">BJC PRIME — bagong streaming experience. Available sa website. App coming soon para sa Android / TV. Buy license para ma-unlock ang premium features.</div>
+
+        <div class="cta-row">
+          <button class="btn" onclick="openLicense()">BUY LICENSE</button>
+          <!-- Download uses GitHub PAGE link as requested (option 2) -->
+          <a class="btn ghost" id="dl-btn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" title="Opens GitHub page for APK">DOWNLOAD APP (APK)</a>
+          <a class="btn ghost" href="watch.php?title=Knights%20of%20the%20Zodiac&file=">WATCH VIA WEBSITE</a>
         </div>
 
-        <div class="meta">
+        <div style="margin-top:14px" class="small">Tip: kapag nag-click sa DOWNLOAD APP, pupunta ka sa GitHub page ng APK. Para sa direct download, i-open ang page at i-click ang download button doon.</div>
+
+        <!-- cover thumbnails (attract) -->
+        <div class="covers" style="margin-top:16px">
+          <div class="poster" onclick="openMovie('Knights of the Zodiac','https://example.com/stream1.mp4')">
+            <img src="https://picsum.photos/seed/knight/600/400" alt="Knights of the Zodiac">
+            <div class="title">Knights of the Zodiac</div>
+          </div>
+          <div class="poster" onclick="openMovie('Avengers Infinity War','http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4')">
+            <img src="https://picsum.photos/seed/avengers/600/400" alt="Avengers">
+            <div class="title">Avengers: Infinity War</div>
+          </div>
+          <div class="poster" onclick="openMovie('Fast & Furious','https://example.com/stream3.mp4')">
+            <img src="https://picsum.photos/seed/fast/600/400" alt="Fast">
+            <div class="title">Fast & Furious</div>
+          </div>
+          <div class="poster" onclick="openMovie('The Last Samurai','https://example.com/stream4.mp4')">
+            <img src="https://picsum.photos/seed/samurai/600/400" alt="Samurai">
+            <div class="title">The Last Samurai</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <!-- hero cover image (movie banner) -->
+        <img src="https://picsum.photos/seed/banner/800/450" alt="BJC PRIME Banner" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+    </section>
+
+    <!-- MOVIES SECTION -->
+    <section class="section">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center">
           <div>
-            <strong>Knights of the Zodiac</strong>
-            <div class="small">Action • Adventure • Coming Soon</div>
+            <h3 style="margin:0">Mga Sikat na Pelikula</h3>
+            <div class="small">Pumili at manood agad sa website — app coming soon</div>
           </div>
-          <a class="btn" href="#download">Get App</a>
-        </div>
-
-        <p class="small" style="margin-top:12px">
-          📽️ Official Trailer above. Full streaming available only inside the BJC PRIME App after license activation.
-        </p>
-
-        <div style="margin-top:12px" class="card">
-          <strong>Sample Movie Link</strong>
-          <div class="small" style="margin-top:6px;word-break:break-all">
-            http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4
-          </div>
-          <div style="margin-top:8px">
-            <a class="btn ghost" href="watch.php?title=Knights%20of%20the%20Zodiac&file=">
-              Open in Watch Page
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <aside>
-        <div class="card">
-          <h3 style="margin:0 0 8px 0">Available Platforms</h3>
-          <div class="downloads">
-            <a id="download" class="btn" href="/downloads/BJC-Prime.apk" download>Download Android APK</a>
-            <a class="btn ghost" href="/desktop">Desktop / PC Version</a>
-          </div>
-
-          <!-- LICENSE AREA -->
-          <div class="license">
-            <strong>License Activation</strong>
-            <p class="small">Enter your license key to unlock premium HD streaming.</p>
-
-            <input id="lic-input" type="text" placeholder="Enter license key" 
-              style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff;margin-top:8px">
-
-            <button id="lic-btn" class="btn" style="width:100%;margin-top:8px">Activate License</button>
-
-            <div id="lic-msg" class="small" style="margin-top:8px"></div>
-          </div>
-
-          <div style="margin-top:12px" class="small">
-            🔒 Premium playback requires valid license. Message us if you need help.
+          <div>
+            <a class="btn" href="index.htm#download">Download App</a>
           </div>
         </div>
 
-        <div class="card" style="margin-top:12px;text-align:center">
-          <strong>Follow Us</strong>
-          <div style="margin-top:8px" class="small">
-            Facebook: 
-            <a href="https://www.facebook.com/bossjunjun09" target="_blank" style="color:#ff5c5c;text-decoration:none">
-              fb.com/bossjunjun09
-            </a>
+        <div class="movies-grid">
+          <div class="movie-card">
+            <img src="https://picsum.photos/seed/movie1/640/360" alt="">
+            <div class="info">
+              <div style="font-weight:700">Knights of the Zodiac</div>
+              <div class="small">Action • 1h 50m</div>
+              <div style="margin-top:8px">
+                <a class="btn" href="watch.php?title=Knights%20of%20the%20Zodiac&file=">PLAY</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="movie-card">
+            <img src="https://picsum.photos/seed/movie2/640/360" alt="">
+            <div class="info">
+              <div style="font-weight:700">Avengers: Infinity War</div>
+              <div class="small">Action • 2h 29m</div>
+              <div style="margin-top:8px">
+                <a class="btn ghost" href="watch.php?title=Avengers%20Infinity%20War&file=http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4">PLAY</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="movie-card">
+            <img src="https://picsum.photos/seed/movie3/640/360" alt="">
+            <div class="info">
+              <div style="font-weight:700">Fast & Furious</div>
+              <div class="small">Action • 2h 10m</div>
+              <div style="margin-top:8px">
+                <a class="btn ghost" href="watch.php?title=Fast%20%26%20Furious&file=https://example.com/stream3.mp4">PLAY</a>
+              </div>
+            </div>
           </div>
         </div>
-      </aside>
-    </main>
+      </div>
+    </section>
 
-    <!-- FOOTER UPDATED WITH COPYRIGHT + FB LINK -->
+    <!-- download / info -->
+    <section class="section" id="download">
+      <div class="panel">
+        <h3 style="margin:0">Download App (Android)</h3>
+        <div class="small" style="margin-top:8px">Auto-download: naka-point sa GitHub page (ito ang link na pinili mo). Kung gusto mo ng direct APK download, palitan ang link ng raw.githubusercontent URL.</div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <a class="btn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" id="apk-github">DOWNLOAD APK (GitHub page)</a>
+          <button class="btn ghost" onclick="navigatorShare()">Share App</button>
+        </div>
+      </div>
+    </section>
+
     <footer>
-      © <span id="yr"></span> BJC PRIME • All Rights Reserved<br>
-      <strong>BJC Team</strong> — 
-      <a href="https://www.facebook.com/bossjunjun09" target="_blank" 
-         style="color:#ff5c5c;text-decoration:none">
-         www.facebook.com/bossjunjun09
-      </a>
+      © <span id="yr"></span> BJC PRIME — All rights reserved. <br>
+      <a href="https://www.facebook.com/bossjunjun09" target="_blank" style="color:var(--muted)">BJC Team — fb.com/bossjunjun09</a>
     </footer>
   </div>
 
+  <!-- OVERLAY for menu & license -->
+  <div class="overlay" id="overlay">
+    <div id="overlay-content"></div>
+  </div>
+
   <script>
-    // Set Year
+    // set year
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Simple License Checker
-    document.getElementById('lic-btn').addEventListener('click', function(){
-      var key = document.getElementById('lic-input').value.trim();
-      var msg = document.getElementById('lic-msg');
-
-      if(!key){
-        msg.style.color = '#f6caca';
-        msg.textContent = 'Please enter your license key.';
-        return;
-      }
-
-      if(key.startsWith("BJC-")){
-        msg.style.color = '#9ff7b3';
-        msg.textContent = 'License activated! Premium unlocked.';
-        localStorage.setItem('bjc_license', key);
-      } else {
-        msg.style.color = '#f6caca';
-        msg.textContent = 'Invalid key. Try again.';
-      }
+    // open menu modal
+    document.getElementById('open-menu').addEventListener('click', function(){
+      showOverlay(`<div class="menu-modal">
+        <h3>Menu</h3>
+        <div class="menu-list">
+          <a class="menu-item" href="index.htm">Home</a>
+          <a class="menu-item" href="watch.php">Watch</a>
+          <a class="menu-item" href="#download">Download App</a>
+          <a class="menu-item" href="about.htm">About</a>
+          <a class="menu-item" href="contact.htm">Contact</a>
+        </div>
+        <div style="margin-top:12px;text-align:right">
+          <button class="btn ghost" onclick="hideOverlay()">Close</button>
+        </div>
+      </div>`);
     });
 
-    // Auto load saved license
+    // open license modal (Buy -> messenger)
+    document.getElementById('open-license').addEventListener('click', openLicense);
+    function openLicense(){
+      showOverlay(`<div class="lic-modal">
+        <h3>Bumili ng License</h3>
+        <p class="small">I-click ang button para mag-message sa admin via Facebook Messenger.</p>
+        <div style="margin-top:10px">
+          <a class="btn" href="https://m.me/bossjunjun09" target="_blank">Buy License — Message</a>
+          <button class="btn ghost" onclick="hideOverlay()" style="margin-left:8px">Close</button>
+        </div>
+      </div>`);
+    }
+
+    function showOverlay(html){
+      var o = document.getElementById('overlay');
+      document.getElementById('overlay-content').innerHTML = html;
+      o.style.display = 'flex';
+      // click outside to close
+      o.onclick = function(e){
+        if(e.target === o) hideOverlay();
+      }
+    }
+    function hideOverlay(){
+      var o = document.getElementById('overlay');
+      o.style.display = 'none';
+      document.getElementById('overlay-content').innerHTML = '';
+    }
+
+    // open movie helper
+    function openMovie(title, file){
+      // try open watch.php with params
+      var t = encodeURIComponent(title);
+      var f = encodeURIComponent(file || '');
+      window.location.href = 'watch.php?title=' + t + '&file=' + f;
+    }
+
+    // share API for mobile
+    function navigatorShare(){
+      if(navigator.share){
+        navigator.share({
+          title: 'BJC PRIME App',
+          text: 'Download BJC PRIME app (Android) — streaming movies.',
+          url: 'https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk'
+        }).catch(()=>{});
+      } else {
+        alert('Share not supported — copy the link: https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk');
+      }
+    }
+
+    // attempt to auto-download by opening GitHub page (option 2: page link)
+    document.getElementById('dl-btn').addEventListener('click', function(e){
+      // we honor your choice: open GitHub PAGE where user can download APK
+      // show small toast
+      showToast('Bubukas ang GitHub page para sa APK download...');
+      // allow default link behavior (opens in new tab)
+    });
+
+    // small toast
+    function showToast(msg){
+      var t = document.createElement('div');
+      t.textContent = msg;
+      t.style.position='fixed';
+      t.style.left='50%';
+      t.style.transform='translateX(-50%)';
+      t.style.bottom='28px';
+      t.style.background='rgba(0,0,0,0.6)';
+      t.style.color='#fff';
+      t.style.padding='10px 14px';
+      t.style.borderRadius='10px';
+      t.style.zIndex=9999;
+      document.body.appendChild(t);
+      setTimeout(()=>{t.remove()},2600);
+    }
+
+    // quick: close overlay on ESC
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') hideOverlay();
+    });
+
+    // sample: if user has saved license in localStorage show notice
     (function(){
-      var saved = localStorage.getItem('bjc_license');
-      if(saved){
-        document.getElementById('lic-input').value = saved;
-        document.getElementById('lic-msg').style.color = '#9ff7b3';
-        document.getElementById('lic-msg').textContent = 'License active (saved).';
+      var k = localStorage.getItem('bjc_license');
+      if(k){
+        showToast('License active (saved).');
       }
     })();
   </script>
-
 </body>
 </html>
