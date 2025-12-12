@@ -1,496 +1,244 @@
-# BJC-PRIME — Full Website Files
-
-Nilagay ko rito lahat ng files na kailangan mo para magkaroon ng maliit na website: `index.html`, `about.htm`, `contact.htm`, `watch.php`, `404.htm`, at isang `.htaccess` sample para sa Apache. Kopyahin at i-upload mo lang ang mga files sa `public_html` o root ng site mo.
-
----
-
-## 1) `index.html`
-
-```html
 <!doctype html>
 <html lang="tl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BJC PRIME — Home</title>
-  <meta name="description" content="BJC PRIME — Streaming movies. Android app coming soon. Buy license: m.me/bossjunjun09" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BJC PRIME</title>
+  <meta name="description" content="BJC PRIME — Pinaka-sariwang movies at download app">
   <style>
-    :root{
-      --bg:#071025; --panel:#0b1220; --muted:#9aa4b2; --accent:#ff5c5c; --glass: rgba(255,255,255,0.03);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#071025 0%, #06111a 100%);color:#eaf2ff}
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1100px;margin:20px auto;padding:18px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    :root{--accent:#ff3b3b;--dark:#0f1724;--muted:#94a3b8;--card:#0b1220}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#071025;color:#e6eef8}
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:linear-gradient(90deg,#071025 0%, #0b1b2b 100%);position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,0.03)}
     .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:56px;height:56px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800}
-    nav{display:flex;gap:10px;align-items:center}
-    .nav-btn{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
-    .hero{margin-top:16px;border-radius:12px;overflow:hidden;background:var(--panel);display:flex;gap:18px;align-items:center}
-    .hero-left{flex:1;padding:28px}
-    .hero-right{width:420px;min-height:240px;background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05));display:flex;align-items:center;justify-content:center}
-    .hero h1{margin:0;font-size:28px}
-    .lead{color:var(--muted);margin-top:8px}
-    .cta-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;border:0;cursor:pointer}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    .covers{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
-    .poster{background:var(--glass);border-radius:8px;overflow:hidden;position:relative;cursor:pointer}
-    .poster img{width:100%;height:220px;object-fit:cover;display:block}
-    .poster .title{padding:8px 10px;font-weight:700;color:#fff}
-    .section{margin-top:22px}
-    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px}
-    .movies-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
-    .movie-card{background:var(--panel);border-radius:8px;overflow:hidden}
-    .movie-card img{width:100%;height:160px;object-fit:cover;display:block}
-    .movie-card .info{padding:10px}
-    .small{font-size:13px;color:var(--muted)}
-    footer{margin-top:30px;color:var(--muted);font-size:13px;text-align:center;padding-bottom:40px}
-    /* popup menu */
-    .overlay{position:fixed;inset:0;background:rgba(2,6,12,0.6);display:none;align-items:center;justify-content:center;z-index:60}
-    .menu-modal{width:320px;background:var(--panel);padding:14px;border-radius:12px}
-    .menu-modal h3{margin:0 0 8px 0}
-    .menu-list{display:flex;flex-direction:column;gap:8px}
-    .menu-item{padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
-    /* license modal */
-    .lic-modal{width:420px;padding:14px;border-radius:10px;background:var(--panel)}
+    .logo{width:44px;height:44px;background:linear-gradient(45deg,var(--accent),#ff8a5b);display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:700}
+    nav{display:flex;gap:8px}
+    nav button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .actions{display:flex;gap:8px}
+    .btn{background:var(--accent);color:#0b1220;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:8px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:22px;padding:28px 20px;align-items:center}
+    .hero-left{padding:8px}
+    .title{font-size:28px;margin:0 0 8px}
+    .subtitle{color:var(--muted);margin:0 0 16px}
+    .cover{position:relative;border-radius:12px;overflow:hidden;background:#111}
+    .cover img{width:100%;height:340px;object-fit:cover;display:block;filter:brightness(0.9)}
+    .cover .overlay{position:absolute;left:16px;bottom:16px;color:#fff}
+    .gallery{display:flex;gap:8px;margin-top:12px}
+    .gallery img{width:calc(25% - 6px);height:88px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+    .gallery img:hover{transform:scale(1.02);border-color:rgba(255,255,255,0.06)}
+
+    /* Cards */
+    .card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;padding:20px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px}
+    .thumb{height:150px;border-radius:8px;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .movie-title{font-weight:700}
+    .movie-meta{color:var(--muted);font-size:13px}
+    .card .actions{margin-top:auto;display:flex;gap:8px}
+
+    /* footer posts */
+    footer{padding:18px 20px;border-top:1px solid rgba(255,255,255,0.03);margin-top:20px}
+    .post{display:flex;gap:12px;align-items:center}
+    .post img{width:120px;height:68px;object-fit:cover;border-radius:8px}
+    .post .ptext{flex:1}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:100}
+    .modal{width:92%;max-width:720px;background:#071827;border-radius:12px;padding:18px;color:#eaf6ff}
+    .close{background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:18px}
+
     /* responsive */
-    @media(max-width:980px){
-      .hero{flex-direction:column}
-      .hero-right{width:100%}
-      .covers{grid-template-columns:repeat(2,1fr)}
-      .movies-grid{grid-template-columns:repeat(2,1fr)}
-      nav{display:none}
-    }
-    @media(max-width:520px){
-      .covers{grid-template-columns:repeat(1,1fr)}
-      .movies-grid{grid-template-columns:1fr}
-      .hero h1{font-size:20px}
-    }
+    @media(max-width:880px){.hero{grid-template-columns:1fr;padding:18px}.hero img{height:220px}.gallery img{height:68px}.card-list{grid-template-columns:repeat(2,1fr)}nav{display:none}}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">BJC</div>
-        <div>
-          <div style="font-weight:800">BJC PRIME</div>
-          <div class="small">High-quality movies • Android app coming soon</div>
-        </div>
+  <header>
+    <div class="brand">
+      <div class="logo">BJC</div>
+      <div>
+        <div style="font-weight:700">BJC PRIME</div>
+        <div style="font-size:12px;color:var(--muted)">Sari-saring movies for mobile & TV</div>
       </div>
+    </div>
 
-      <nav>
-        <button class="nav-btn" id="open-menu">Menu</button>
-        <a class="nav-btn" href="index.htm">Home</a>
-        <button class="nav-btn" id="open-license">Buy License</button>
-        <a class="nav-btn" href="watch.php" title="Watch online">Watch</a>
-        <a class="nav-btn" href="index.htm#download" title="Download app">Download</a>
-      </nav>
+    <nav aria-label="main menu">
+      <button onclick="openModal('about')">About</button>
+      <button onclick="openModal('movies')">Movies</button>
+      <button onclick="openModal('posts')">Posts</button>
+      <button onclick="openModal('license')">License</button>
+    </nav>
 
-      <div style="display:flex;gap:8px;align-items:center">
-        <a class="nav-btn" href="https://www.facebook.com/bossjunjun09" target="_blank">FB</a>
-        <a class="nav-btn" href="https://m.me/bossjunjun09" target="_blank">Message</a>
-      </div>
-    </header>
+    <div class="actions">
+      <a class="secondary" href="https://m.me/bossjunjun09" target="_blank" rel="noopener">Buy License</a>
+      <a class="btn" id="downloadBtn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" rel="noopener">Download App</a>
+    </div>
+  </header>
 
-    <!-- HERO -->
+  <main>
     <section class="hero">
       <div class="hero-left">
-        <h1>Knights of the Zodiac — Trailer</h1>
-        <div class="lead">BJC PRIME — bagong streaming experience. Available sa website. App coming soon para sa Android / TV. Buy license para ma-unlock ang premium features.</div>
+        <h1 class="title">Panoorin ang pinakabagong pelikula — BJC PRIME</h1>
+        <p class="subtitle">Mag-browse ng collections, i-download ang app (Android/TV), o bumili ng license para sa mas kumpletong access.</p>
 
-        <div class="cta-row">
-          <button class="btn" onclick="openLicense()">BUY LICENSE</button>
-          <!-- Download uses GitHub PAGE link as requested (option 2) -->
-          <a class="btn ghost" id="dl-btn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" title="Opens GitHub page for APK">DOWNLOAD APP (APK)</a>
-          <a class="btn ghost" href="watch.php?title=Knights%20of%20the%20Zodiac&file=">WATCH VIA WEBSITE</a>
+        <div class="cover" id="cover">
+          <img src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=0" alt="Cover Movie">
+          <div class="overlay">
+            <h3 style="margin:0">Featured: Mystery Night</h3>
+            <p style="margin:6px 0 0;color:var(--muted)">Action • Thriller • 2025</p>
+          </div>
         </div>
 
-        <div style="margin-top:14px" class="small">Tip: kapag nag-click sa DOWNLOAD APP, pupunta ka sa GitHub page ng APK. Para sa direct download, i-open ang page at i-click ang download button doon.</div>
-
-        <!-- cover thumbnails (attract) -->
-        <div class="covers" style="margin-top:16px">
-          <div class="poster" onclick="openMovie('Knights of the Zodiac','https://example.com/stream1.mp4')">
-            <img src="https://picsum.photos/seed/knight/600/400" alt="Knights of the Zodiac">
-            <div class="title">Knights of the Zodiac</div>
-          </div>
-          <div class="poster" onclick="openMovie('Avengers Infinity War','http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4')">
-            <img src="https://picsum.photos/seed/avengers/600/400" alt="Avengers">
-            <div class="title">Avengers: Infinity War</div>
-          </div>
-          <div class="poster" onclick="openMovie('Fast & Furious','https://example.com/stream3.mp4')">
-            <img src="https://picsum.photos/seed/fast/600/400" alt="Fast">
-            <div class="title">Fast & Furious</div>
-          </div>
-          <div class="poster" onclick="openMovie('The Last Samurai','https://example.com/stream4.mp4')">
-            <img src="https://picsum.photos/seed/samurai/600/400" alt="Samurai">
-            <div class="title">The Last Samurai</div>
-          </div>
+        <div class="gallery" aria-hidden="false">
+          <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=800&auto=format&fit=crop&s=0" alt="movie1" onclick="setCover(this.src)">
+          <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=801&auto=format&fit=crop&s=0" alt="movie2" onclick="setCover(this.src)">
+          <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=802&auto=format&fit=crop&s=0" alt="movie3" onclick="setCover(this.src)">
+          <img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=803&auto=format&fit=crop&s=0" alt="movie4" onclick="setCover(this.src)">
         </div>
+
       </div>
 
-      <div class="hero-right">
-        <!-- hero cover image (movie banner) -->
-        <img src="https://picsum.photos/seed/banner/800/450" alt="BJC PRIME Banner" style="width:100%;height:100%;object-fit:cover;display:block">
+      <aside style="padding:8px">
+        <div style="background:#071827;padding:12px;border-radius:10px">
+          <h4 style="margin:0 0 8px">Main Features</h4>
+          <ul style="margin:0 0 10px;color:var(--muted);padding-left:18px">
+            <li>Offline Android APK (soon auto-download)</li>
+            <li>Simple UI for mobile at TV</li>
+            <li>Buy license via Messenger</li>
+          </ul>
+          <a class="btn" href="https://m.me/bossjunjun09" target="_blank" rel="noopener">Buy License</a>
+          <div style="margin-top:12px;color:var(--muted);font-size:13px">Link sa APK:</div>
+          <a href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" rel="noopener" class="secondary" style="display:inline-block;margin-top:8px">GitHub APK (Download)</a>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Movie cards -->
+    <section>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px">
+        <h3 style="margin:0">Mga pelikula</h3>
+        <div style="color:var(--muted);font-size:13px">I-click ang "Play" para mag-preview o "Details" para sa impormasyon</div>
+      </div>
+
+      <div class="card-list" id="moviesList">
+        <!-- Example movie cards -->
+        <article class="card">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=800&auto=format&fit=crop&s=0" alt="movie"></div>
+          <div class="movie-title">Mystery Night</div>
+          <div class="movie-meta">Action • 2025 • 2h 10m</div>
+          <div class="actions">
+            <button class="secondary" onclick="openModal('details', {title:'Mystery Night',desc:'Isang pulse-pounding mystery action film.'})">Details</button>
+            <button class="btn" onclick="alert('Preview not available on website. Download app para sa better experience.')">Play</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=800&auto=format&fit=crop&s=0" alt="movie"></div>
+          <div class="movie-title">Journey Home</div>
+          <div class="movie-meta">Drama • 2024 • 1h 50m</div>
+          <div class="actions">
+            <button class="secondary" onclick="openModal('details', {title:'Journey Home',desc:'A heartwarming drama about family and courage.'})">Details</button>
+            <button class="btn" onclick="alert('Preview not available on website. Download app para sa better experience.')">Play</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=800&auto=format&fit=crop&s=0" alt="movie"></div>
+          <div class="movie-title">Cyber Chase</div>
+          <div class="movie-meta">Sci-fi • 2023 • 2h 5m</div>
+          <div class="actions">
+            <button class="secondary" onclick="openModal('details', {title:'Cyber Chase',desc:'Tech-thriller na puno ng twists.'})">Details</button>
+            <button class="btn" onclick="alert('Preview not available on website. Download app para sa better experience.')">Play</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=800&auto=format&fit=crop&s=0" alt="movie"></div>
+          <div class="movie-title">Sunset Run</div>
+          <div class="movie-meta">Adventure • 2022 • 1h 40m</div>
+          <div class="actions">
+            <button class="secondary" onclick="openModal('details', {title:'Sunset Run',desc:'Action-adventure para sa buong pamilya.'})">Details</button>
+            <button class="btn" onclick="alert('Preview not available on website. Download app para sa better experience.')">Play</button>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- MOVIES SECTION -->
-    <section class="section">
-      <div class="panel">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <h3 style="margin:0">Mga Sikat na Pelikula</h3>
-            <div class="small">Pumili at manood agad sa website — app coming soon</div>
-          </div>
-          <div>
-            <a class="btn" href="index.htm#download">Download App</a>
-          </div>
-        </div>
-
-        <div class="movies-grid">
-          <div class="movie-card">
-            <img src="https://picsum.photos/seed/movie1/640/360" alt="">
-            <div class="info">
-              <div style="font-weight:700">Knights of the Zodiac</div>
-              <div class="small">Action • 1h 50m</div>
-              <div style="margin-top:8px">
-                <a class="btn" href="watch.php?title=Knights%20of%20the%20Zodiac&file=">PLAY</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="movie-card">
-            <img src="https://picsum.photos/seed/movie2/640/360" alt="">
-            <div class="info">
-              <div style="font-weight:700">Avengers: Infinity War</div>
-              <div class="small">Action • 2h 29m</div>
-              <div style="margin-top:8px">
-                <a class="btn ghost" href="watch.php?title=Avengers%20Infinity%20War&file=http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4">PLAY</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="movie-card">
-            <img src="https://picsum.photos/seed/movie3/640/360" alt="">
-            <div class="info">
-              <div style="font-weight:700">Fast & Furious</div>
-              <div class="small">Action • 2h 10m</div>
-              <div style="margin-top:8px">
-                <a class="btn ghost" href="watch.php?title=Fast%20%26%20Furious&file=https://example.com/stream3.mp4">PLAY</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- download / info -->
-    <section class="section" id="download">
-      <div class="panel">
-        <h3 style="margin:0">Download App (Android)</h3>
-        <div class="small" style="margin-top:8px">Auto-download: naka-point sa GitHub page (ito ang link na pinili mo). Kung gusto mo ng direct APK download, palitan ang link ng raw.githubusercontent URL.</div>
-        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-          <a class="btn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" id="apk-github">DOWNLOAD APK (GitHub page)</a>
-          <button class="btn ghost" onclick="navigatorShare()">Share App</button>
-        </div>
-      </div>
-    </section>
-
+    <!-- Footer posts / promotion area -->
     <footer>
-      © <span id="yr"></span> BJC PRIME — All rights reserved. <br>
-      <a href="https://www.facebook.com/bossjunjun09" target="_blank" style="color:var(--muted)">BJC Team — fb.com/bossjunjun09</a>
-    </footer>
-  </div>
+      <div style="max-width:1100px;margin:0 auto">
+        <h4>Latest Post</h4>
+        <div class="post">
+          <img src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=800&auto=format&fit=crop&s=0" alt="post">
+          <div class="ptext">
+            <div style="font-weight:700">Movie Poster: Mystery Night</div>
+            <div style="color:var(--muted);font-size:13px">I-download ang Android APK or mag-message para bumili ng license.</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <a class="secondary" href="https://m.me/bossjunjun09" target="_blank" rel="noopener">Message</a>
+            <a class="btn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" rel="noopener">Download App</a>
+          </div>
+        </div>
 
-  <!-- OVERLAY for menu & license -->
-  <div class="overlay" id="overlay">
-    <div id="overlay-content"></div>
+        <p style="color:var(--muted);font-size:13px;margin-top:12px">Auto-download feature: <strong>Coming soon.</strong> Sa ngayon, puwede pa rin mag-download mula sa GitHub link o mag-message sa aming seller.</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Modal backdrop -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" id="modalContent">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong id="modalTitle">Modal</strong>
+        <button class="close" onclick="closeModal()">✕</button>
+      </div>
+      <div id="modalBody" style="color:var(--muted);line-height:1.5"></div>
+    </div>
   </div>
 
   <script>
-    // set year
-    document.getElementById('yr').textContent = new Date().getFullYear();
+    function openModal(type, data){
+      const md = document.getElementById('modalBackdrop');
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+      if(type==='about'){
+        title.textContent='Tungkol sa BJC PRIME';
+        body.innerHTML=`<p>BJC PRIME — iyong source ng napapanahong pelikula para sa mobile at TV. Ito ay demo site para sa promotional purposes. Para bumili ng lisensya o para sa full access, mag-message sa aming seller.</p><p style="margin-top:8px"><strong>Contact:</strong> <a href=\"https://m.me/bossjunjun09\" target=\"_blank\">Messenger</a></p>`;
+      } else if(type==='movies'){
+        title.textContent='Listahan ng Pelikula';
+        body.innerHTML=`<ul><li>Mystery Night</li><li>Journey Home</li><li>Cyber Chase</li><li>Sunset Run</li></ul>`;
+      } else if(type==='posts'){
+        title.textContent='Mga Post';
+        body.innerHTML=`<p>Latest post: Poster at update ng pelikula. I-download ang APK para sa mas magandang viewing experience.</p>`;
+      } else if(type==='license'){
+        title.textContent='Buy License';
+        body.innerHTML=`<p>Para bumili ng lisensya, i-message kami sa Messenger:</p><p><a href=\"https://m.me/bossjunjun09\" target=\"_blank\">https://m.me/bossjunjun09</a></p><p style=\"margin-top:8px;color:var(--muted)\">License grants access sa mas maraming kategorya at walang ads.</p>`;
+      } else if(type==='details'){
+        title.textContent=data.title||'Details';
+        body.innerHTML=`<p>${data.desc||''}</p><p style="margin-top:8px;color:var(--muted)">Para bumili ng lisensya o i-download ang app, i-click ang button sa header o footer.</p>`;
+      }
+      md.style.display='flex';
+    }
+    function closeModal(){document.getElementById('modalBackdrop').style.display='none'}
+    document.getElementById('modalBackdrop').addEventListener('click', function(e){if(e.target===this) closeModal()})
 
-    // open menu modal
-    document.getElementById('open-menu').addEventListener('click', function(){
-      showOverlay(`<div class="menu-modal">
-        <h3>Menu</h3>
-        <div class="menu-list">
-          <a class="menu-item" href="index.htm">Home</a>
-          <a class="menu-item" href="watch.php">Watch</a>
-          <a class="menu-item" href="#download">Download App</a>
-          <a class="menu-item" href="about.htm">About</a>
-          <a class="menu-item" href="contact.htm">Contact</a>
-        </div>
-        <div style="margin-top:12px;text-align:right">
-          <button class="btn ghost" onclick="hideOverlay()">Close</button>
-        </div>
-      </div>`);
+    function setCover(src){document.querySelector('.cover img').src=src}
+
+    // Optional: attempt auto-download (browsers block immediate downloads in many cases)
+    const downloadBtn = document.getElementById('downloadBtn');
+    downloadBtn.addEventListener('click', function(e){
+      // We keep the normal navigation — auto-download coming soon message
+      alert('Auto-download feature: Coming soon. Susundan ang GitHub link para makuha ang APK.');
     });
 
-    // open license modal (Buy -> messenger)
-    document.getElementById('open-license').addEventListener('click', openLicense);
-    function openLicense(){
-      showOverlay(`<div class="lic-modal">
-        <h3>Bumili ng License</h3>
-        <p class="small">I-click ang button para mag-message sa admin via Facebook Messenger.</p>
-        <div style="margin-top:10px">
-          <a class="btn" href="https://m.me/bossjunjun09" target="_blank">Buy License — Message</a>
-          <button class="btn ghost" onclick="hideOverlay()" style="margin-left:8px">Close</button>
-        </div>
-      </div>`);
-    }
+    // small UX: highlight gallery image on click
+    document.querySelectorAll('.gallery img').forEach(img=>img.addEventListener('click',function(){document.querySelectorAll('.gallery img').forEach(i=>i.style.opacity=1);this.style.opacity=0.9}))
 
-    function showOverlay(html){
-      var o = document.getElementById('overlay');
-      document.getElementById('overlay-content').innerHTML = html;
-      o.style.display = 'flex';
-      // click outside to close
-      o.onclick = function(e){
-        if(e.target === o) hideOverlay();
-      }
-    }
-    function hideOverlay(){
-      var o = document.getElementById('overlay');
-      o.style.display = 'none';
-      document.getElementById('overlay-content').innerHTML = '';
-    }
-
-    // open movie helper
-    function openMovie(title, file){
-      // try open watch.php with params
-      var t = encodeURIComponent(title);
-      var f = encodeURIComponent(file || '');
-      window.location.href = 'watch.php?title=' + t + '&file=' + f;
-    }
-
-    // share API for mobile
-    function navigatorShare(){
-      if(navigator.share){
-        navigator.share({
-          title: 'BJC PRIME App',
-          text: 'Download BJC PRIME app (Android) — streaming movies.',
-          url: 'https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk'
-        }).catch(()=>{});
-      } else {
-        alert('Share not supported — copy the link: https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk');
-      }
-    }
-
-    // attempt to auto-download by opening GitHub page (option 2: page link)
-    document.getElementById('dl-btn').addEventListener('click', function(e){
-      // we honor your choice: open GitHub PAGE where user can download APK
-      // show small toast
-      showToast('Bubukas ang GitHub page para sa APK download...');
-      // allow default link behavior (opens in new tab)
-    });
-
-    // small toast
-    function showToast(msg){
-      var t = document.createElement('div');
-      t.textContent = msg;
-      t.style.position='fixed';
-      t.style.left='50%';
-      t.style.transform='translateX(-50%)';
-      t.style.bottom='28px';
-      t.style.background='rgba(0,0,0,0.6)';
-      t.style.color='#fff';
-      t.style.padding='10px 14px';
-      t.style.borderRadius='10px';
-      t.style.zIndex=9999;
-      document.body.appendChild(t);
-      setTimeout(()=>{t.remove()},2600);
-    }
-
-    // quick: close overlay on ESC
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape') hideOverlay();
-    });
-
-    // sample: if user has saved license in localStorage show notice
-    (function(){
-      var k = localStorage.getItem('bjc_license');
-      if(k){
-        showToast('License active (saved).');
-      }
-    })();
+    // Accessibility: keyboard close
+    document.addEventListener('keydown',function(e){if(e.key==='Escape') closeModal()})
   </script>
 </body>
 </html>
-```
-
----
-
-## 2) `about.htm`
-
-```html
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>About — BJC PRIME</title>
-  <style>body{font-family:Arial;background:#071025;color:#eaf2ff;padding:28px}a{color:#9aa4b2} .card{background:#0b1220;padding:18px;border-radius:10px;max-width:900px;margin:0 auto}</style>
-</head>
-<body>
-  <div class="card">
-    <h1>About BJC PRIME</h1>
-    <p class="small">BJC PRIME ay isang streaming portal na nagbibigay ng mataas na kalidad na pelikula at series. Nagbibigay kami ng parehong web player at Android app (coming soon). Para bumili ng lisensya o inquiries, mag-message sa <a href="https://m.me/bossjunjun09" target="_blank">m.me/bossjunjun09</a>.</p>
-    <p><a href="index.htm">Back to Home</a></p>
-  </div>
-</body>
-</html>
-```
-
----
-
-## 3) `contact.htm`
-
-```html
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Contact — BJC PRIME</title>
-  <style>body{font-family:Arial;background:#071025;color:#eaf2ff;padding:28px}a{color:#9aa4b2} .card{background:#0b1220;padding:18px;border-radius:10px;max-width:900px;margin:0 auto}</style>
-</head>
-<body>
-  <div class="card">
-    <h1>Contact</h1>
-    <p class="small">Para sa sales at support, mag-message sa aming Facebook Messenger:</p>
-    <p><a class="btn" href="https://m.me/bossjunjun09" target="_blank">Message Admin</a></p>
-    <p style="margin-top:12px"><a href="index.htm">Back to Home</a></p>
-  </div>
-</body>
-</html>
-```
-
----
-
-## 4) `watch.php` (simple player)
-
-> *Gumamit ng PHP server (Apache / Nginx + PHP) para gumana ito.*
-
-```php
-<?php
-// watch.php - simple player page
-// usage: watch.php?title=Movie%20Title&file=<video_url_or_blank>
-
-$title = isset($_GET['title']) ? urldecode($_GET['title']) : 'Unknown';
-$file  = isset($_GET['file']) ? urldecode($_GET['file']) : '';
-
-// basic sanitization
-$title_safe = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
-$file_safe  = htmlspecialchars($file, ENT_QUOTES, 'UTF-8');
-
-// Function to detect if link looks like a direct video
-function is_direct_video($u){
-    if(!$u) return false;
-    $ext = strtolower(pathinfo(parse_url($u, PHP_URL_PATH), PATHINFO_EXTENSION));
-    $direct = in_array($ext, ['mp4','webm','ogg']);
-    return $direct;
-}
-
-?><!doctype html>
-<html>
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Watch - <?php echo $title_safe; ?></title>
-  <style>body{font-family:Arial;background:#071025;color:#eaf2ff;padding:18px}.card{background:#0b1220;padding:14px;border-radius:10px;max-width:980px;margin:0 auto}.small{color:#9aa4b2}</style>
-</head>
-<body>
-  <div class="card">
-    <h2><?php echo $title_safe; ?></h2>
-    <p class="small">Playback options</p>
-
-    <?php if(!$file): ?>
-      <p class="small">Walang video file na pinasa. Pwede kang pumili mula sa home page o maglagay ng file param para mag-play.</p>
-      <p><a href="index.htm">Back to Home</a></p>
-    <?php else: ?>
-
-      <?php if(is_direct_video($file)): ?>
-        <video controls style="width:100%;max-height:70vh">
-          <source src="<?php echo $file_safe; ?>">
-          Your browser does not support the video tag.
-        </video>
-        <p style="margin-top:8px"><a class="small" href="<?php echo $file_safe; ?>" target="_blank">Open raw file</a></p>
-      <?php else: ?>
-        <!-- attempt iframe embed for youtube or other players -->
-        <?php
-          // handle youtube links
-          if(strpos($file, 'youtube.com/watch') !== false || strpos($file, 'youtu.be/') !== false){
-            // extract id
-            preg_match('/(v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/', $file, $m);
-            $id = isset($m[2]) ? $m[2] : '';
-            $embed = $id ? "https://www.youtube.com/embed/".htmlspecialchars($id, ENT_QUOTES, 'UTF-8') : '';
-            if($embed){
-              echo '<iframe width="100%" height="480" src="'. $embed .'" frameborder="0" allowfullscreen></iframe>';
-            } else {
-              echo '<p class="small">Hindi ma-embed ang video. Buksan sa bagong tab:</p><p><a href="'. $file_safe .'" target="_blank">Open link</a></p>';
-            }
-          } else {
-            // generic fallback: open link in new tab
-            echo '<p class="small">Hindi direct video. Buksan sa bagong tab para i-play:</p><p><a href="'. $file_safe .'" target="_blank">Open link</a></p>';
-          }
-        ?>
-      <?php endif; ?>
-
-    <?php endif; ?>
-
-    <div style="margin-top:12px">
-      <a href="index.htm">Back to Home</a>
-    </div>
-  </div>
-</body>
-</html>
-```
-
----
-
-## 5) `404.htm` (custom not-found page)
-
-```html
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>404 — Hindi natagpuan</title>
-  <style>body{font-family:Arial;background:#071025;color:#eaf2ff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}.card{background:#0b1220;padding:28px;border-radius:12px;text-align:center}.btn{background:#ff5c5c;color:#fff;padding:10px 14px;border-radius:8px;display:inline-block;margin-top:12px}</style>
-</head>
-<body>
-  <div class="card">
-    <h1>404</h1>
-    <p class="small">Mukhang hindi natin makita ang page na hinahanap mo.</p>
-    <a class="btn" href="index.htm">Bumalik sa Home</a>
-  </div>
-</body>
-</html>
-```
-
----
-
-## 6) `.htaccess` (optional, para sa Apache)
-
-```
-# Place in public_html to set custom 404 and handle index
-DirectoryIndex index.htm index.html index.php
-ErrorDocument 404 /404.htm
-```
-
----
-
-## Deployment notes
-
-1. Upload lahat ng files (`index.html`, `about.htm`, `contact.htm`, `watch.php`, `404.htm`, `.htaccess`) sa `public_html` o website root.
-2. `watch.php` kailangan ng PHP — siguraduhin naka-enable ang PHP sa server (karaniwang available sa shared hosting).
-3. Kung hindi mo gusto ang `watch.php`, pwede mo ring gumamit ng `watch.html` at mag-open ng external player.
-4. Ang download button ay naka-point sa GitHub PAGE link (hindi direct APK). Kung gusto mo ng direct download, palitan ang link sa `index.html` & mga buttons ng raw.githubusercontent link.
-5. I-test: buksan `https://yourdomain.com/index.htm` at `https://yourdomain.com/watch.php?title=Avengers&file=http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4`
-
----
-
-Kung gusto mo, gagawan ko ng biswal na improvements (carousel, lazy-loading posters, o Tagalog copy para sa lahat ng pages). Sabihin mo lang — ipapadala ko agad ang susunod na version.
-
-*Done — kopyahin mo na lang ang mga files mula rito at i-upload. Kung gusto mo ng ZIP file, sasabihin mo lang at gagawan kita.*
