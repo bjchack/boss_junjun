@@ -5,273 +5,176 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BJC PRIME</title>
   <meta name="description" content="BJC PRIME — Pinaka-sariwang movies at download app">
+  
+  <!-- ALL-IN-ONE CLEAN INDEX.HTML -->
   <style>
-    :root{
-      --accent:#ff3b3b;
-      --bg:#071025;
-      --muted:#94a3b8;
-      --card:#0b1220;
-      --text:#e6eef8;
-    }
+    :root{--accent:#ff3b3b;--dark:#0f1724;--muted:#94a3b8;--card:#0b1220}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,Helvetica,sans-serif;background:#071025;color:#e6eef8}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    /* Header */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 20px;
-      background:linear-gradient(90deg,#071025 0%, #0b1b2b 100%);
-      position:sticky;top:0;z-index:50;
-      border-bottom:1px solid rgba(255,255,255,0.03);
-    }
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#0b1b2b;position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,0.07)}
     .brand{display:flex;gap:12px;align-items:center}
     .logo{width:44px;height:44px;background:linear-gradient(45deg,var(--accent),#ff8a5b);display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:700}
+
     nav{display:flex;gap:8px}
-    nav button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;padding:8px 12px;border-radius:8px;cursor:pointer}
+    nav button{background:transparent;border:1px solid rgba(255,255,255,0.15);color:#e6eef8;padding:8px 12px;border-radius:8px;cursor:pointer}
 
     .actions{display:flex;gap:8px}
-    .btn{background:var(--accent);color:#0b1220;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:600;text-decoration:none}
-    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:8px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center}
+    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:600;text-decoration:none}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.15);padding:10px 14px;border-radius:8px;color:#fff;text-decoration:none}
 
-    /* Hero */
-    .hero{display:grid;grid-template-columns:1fr 360px;gap:20px;padding:28px 20px;align-items:start;max-width:1200px;margin:0 auto}
-    .title{font-size:28px;margin:0 0 8px}
-    .subtitle{color:var(--muted);margin:0 0 16px}
-    .cover{position:relative;border-radius:12px;overflow:hidden;background:#111}
-    .cover img{width:100%;height:320px;object-fit:cover;display:block}
-    .overlay{position:absolute;left:16px;bottom:16px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,0.6)}
+    /* HERO */
+    .hero{padding:20px;display:grid;grid-template-columns:1fr 380px;gap:18px}
+    .cover{border-radius:12px;overflow:hidden}
+    .cover img{width:100%;height:320px;object-fit:cover}
+    .gallery{display:flex;gap:6px;margin-top:10px}
+    .gallery img{width:25%;height:70px;border-radius:6px;object-fit:cover;cursor:pointer;border:2px solid transparent}
+    .gallery img:hover{border-color:var(--accent)}
 
-    .gallery{display:flex;gap:8px;margin-top:12px}
-    .gallery img{width:calc(25% - 6px);height:76px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
-    .gallery img:hover{transform:scale(1.02);border-color:rgba(255,255,255,0.06)}
+    /* MOVIE CARDS */
+    .card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:20px}
+    .card{background:#0b1220;padding:10px;border-radius:10px}
+    .thumb img{width:100%;height:140px;border-radius:8px;object-fit:cover}
+    .movie-title{font-weight:700;margin-top:6px}
+    .movie-meta{color:var(--muted);font-size:13px;margin-bottom:8px}
 
-    /* Cards */
-    .card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;padding:16px;max-width:1200px;margin:0 auto}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px}
-    .thumb{height:140px;border-radius:8px;overflow:hidden}
-    .thumb img{width:100%;height:100%;object-fit:cover}
-    .movie-title{font-weight:700}
-    .movie-meta{color:var(--muted);font-size:13px}
-    .card .actions{margin-top:auto;display:flex;gap:8px}
+    /* FOOTER */
+    footer{padding:20px;border-top:1px solid rgba(255,255,255,0.1)}
+    .post{display:flex;gap:12px}
+    .post img{width:120px;height:68px;border-radius:8px;object-fit:cover}
 
-    /* Footer */
-    footer{padding:18px 20px;border-top:1px solid rgba(255,255,255,0.03);margin-top:20px}
-    .post{display:flex;gap:12px;align-items:center;max-width:1100px;margin:0 auto}
-    .post img{width:120px;height:68px;object-fit:cover;border-radius:8px}
-    .post .ptext{flex:1}
+    /* MODAL */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:100}
+    .modal{background:#0b1220;padding:18px;border-radius:10px;width:90%;max-width:650px}
 
-    /* Modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:100}
-    .modal{width:92%;max-width:720px;background:#071827;border-radius:12px;padding:18px;color:#eaf6ff}
-    .close{background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:18px}
-
-    /* Responsive */
-    @media(max-width:880px){
-      .hero{grid-template-columns:1fr;padding:18px}
-      .cover img{height:220px}
-      .gallery img{height:60px}
-      .card-list{grid-template-columns:repeat(2,1fr)}
+    @media(max-width:820px){
+      .hero{grid-template-columns:1fr}
       nav{display:none}
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <div class="logo">BJC</div>
-      <div>
-        <div style="font-weight:700">BJC PRIME</div>
-        <div style="font-size:12px;color:var(--muted)">Sari-saring movies for mobile & TV</div>
-      </div>
-    </div>
 
-    <nav aria-label="main menu">
-      <button onclick="openModal('about')">About</button>
-      <button onclick="openModal('movies')">Movies</button>
-      <button onclick="openModal('posts')">Posts</button>
-      <button onclick="openModal('license')">License</button>
-    </nav>
-
-    <div class="actions">
-      <a class="secondary" href="https://m.me/bossjunjun09" target="_blank" rel="noopener">Buy License</a>
-      <a class="btn" id="downloadBtn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" rel="noopener">Download App</a>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div>
-        <h1 class="title">Panoorin ang pinakabagong pelikula — BJC PRIME</h1>
-        <p class="subtitle">Mag-browse ng collections, i-download ang app (Android/TV), o bumili ng license para sa mas kumpletong access.</p>
-
-        <div class="cover" id="cover">
-          <img src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=1400&auto=format&fit=crop" alt="Cover Movie">
-          <div class="overlay">
-            <h3 style="margin:0">Featured: Mystery Night</h3>
-            <p style="margin:6px 0 0;color:var(--muted)">Action • Thriller • 2025</p>
-          </div>
-        </div>
-
-        <div class="gallery" aria-hidden="false">
-          <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=800&auto=format&fit=crop" alt="movie1" onclick="setCover(this.src)">
-          <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=800&auto=format&fit=crop" alt="movie2" onclick="setCover(this.src)">
-          <img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=800&auto=format&fit=crop" alt="movie3" onclick="setCover(this.src)">
-          <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=801&auto=format&fit=crop" alt="movie4" onclick="setCover(this.src)">
-        </div>
-      </div>
-
-      <aside>
-        <div style="background:#071827;padding:12px;border-radius:10px">
-          <h4 style="margin:0 0 8px">Main Features</h4>
-          <ul style="margin:0 0 10px;color:var(--muted);padding-left:18px">
-            <li>Offline Android APK (auto-download coming soon)</li>
-            <li>Simple UI for mobile at TV</li>
-            <li>Buy license via Messenger</li>
-          </ul>
-          <a class="btn" href="https://m.me/bossjunjun09" target="_blank" rel="noopener">Buy License</a>
-          <div style="margin-top:12px;color:var(--muted);font-size:13px">Link sa APK:</div>
-          <a href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" rel="noopener" class="secondary" style="display:inline-block;margin-top:8px">GitHub APK (Download)</a>
-        </div>
-      </aside>
-    </section>
-
-    <!-- Movie cards -->
-    <section>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:1200px;margin:0 auto">
-        <h3 style="margin:0">Mga pelikula</h3>
-        <div style="color:var(--muted);font-size:13px">I-click ang "Play" para mag-preview o "Details" para sa impormasyon</div>
-      </div>
-
-      <div class="card-list" id="moviesList">
-        <!-- Example movie cards -->
-        <article class="card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=800&auto=format&fit=crop" alt="movie"></div>
-          <div class="movie-title">Mystery Night</div>
-          <div class="movie-meta">Action • 2025 • 2h 10m</div>
-          <div class="actions">
-            <button class="secondary" onclick="openModal('details', {title:'Mystery Night',desc:'Isang pulse-pounding mystery action film.'})">Details</button>
-            <button class="btn" onclick="alert('Preview not available on website. Download app para sa better experience.')">Play</button>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=800&auto=format&fit=crop" alt="movie"></div>
-          <div class="movie-title">Journey Home</div>
-          <div class="movie-meta">Drama • 2024 • 1h 50m</div>
-          <div class="actions">
-            <button class="secondary" onclick="openModal('details', {title:'Journey Home',desc:'A heartwarming drama about family and courage.'})">Details</button>
-            <button class="btn" onclick="alert('Preview not available on website. Download app para sa better experience.')">Play</button>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=800&auto=format&fit=crop" alt="movie"></div>
-          <div class="movie-title">Cyber Chase</div>
-          <div class="movie-meta">Sci-fi • 2023 • 2h 5m</div>
-          <div class="actions">
-            <button class="secondary" onclick="openModal('details', {title:'Cyber Chase',desc:'Tech-thriller na puno ng twists.'})">Details</button>
-            <button class="btn" onclick="alert('Preview not available on website. Download app para sa better experience.')">Play</button>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=800&auto=format&fit=crop" alt="movie"></div>
-          <div class="movie-title">Sunset Run</div>
-          <div class="movie-meta">Adventure • 2022 • 1h 40m</div>
-          <div class="actions">
-            <button class="secondary" onclick="openModal('details', {title:'Sunset Run',desc:'Action-adventure para sa buong pamilya.'})">Details</button>
-            <button class="btn" onclick="alert('Preview not available on website. Download app para sa better experience.')">Play</button>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- Footer posts / promotion area -->
-    <footer>
-      <div style="max-width:1100px;margin:0 auto">
-        <h4>Latest Post</h4>
-        <div class="post">
-          <img src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=800&auto=format&fit=crop" alt="post">
-          <div class="ptext">
-            <div style="font-weight:700">Movie Poster: Mystery Night</div>
-            <div style="color:var(--muted);font-size:13px">I-download ang Android APK or mag-message para bumili ng license.</div>
-          </div>
-          <div style="display:flex;gap:8px">
-            <a class="secondary" href="https://m.me/bossjunjun09" target="_blank" rel="noopener">Message</a>
-            <a class="btn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank" rel="noopener">Download App</a>
-          </div>
-        </div>
-
-        <p style="color:var(--muted);font-size:13px;margin-top:12px">Auto-download feature: <strong>Coming soon.</strong> Sa ngayon, puwede pa rin mag-download mula sa GitHub link o mag-message sa aming seller.</p>
-      </div>
-    </footer>
-
-  </main>
-
-  <!-- Modal backdrop -->
-  <div class="modal-backdrop" id="modalBackdrop">
-    <div class="modal" role="dialog" aria-modal="true" id="modalContent">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <strong id="modalTitle">Modal</strong>
-        <button class="close" onclick="closeModal()">✕</button>
-      </div>
-      <div id="modalBody" style="color:var(--muted);line-height:1.5"></div>
+<header>
+  <div class="brand">
+    <div class="logo">BJC</div>
+    <div>
+      <div style="font-weight:700">BJC PRIME</div>
+      <div style="font-size:12px;color:var(--muted)">Movies for Phone & TV</div>
     </div>
   </div>
 
-  <script>
-    function openModal(type, data){
-      const md = document.getElementById('modalBackdrop');
-      const title = document.getElementById('modalTitle');
-      const body = document.getElementById('modalBody');
-      if(type==='about'){
-        title.textContent='Tungkol sa BJC PRIME';
-        body.innerHTML=`<p>BJC PRIME — iyong source ng napapanahong pelikula para sa mobile at TV. Ito ay demo site para sa promotional purposes. Para bumili ng lisensya o para sa full access, mag-message sa aming seller.</p><p style="margin-top:8px"><strong>Contact:</strong> <a href=\"https://m.me/bossjunjun09\" target=\"_blank\">Messenger</a></p>`;
-      } else if(type==='movies'){
-        title.textContent='Listahan ng Pelikula';
-        body.innerHTML=`<ul><li>Mystery Night</li><li>Journey Home</li><li>Cyber Chase</li><li>Sunset Run</li></ul>`;
-      } else if(type==='posts'){
-        title.textContent='Mga Post';
-        body.innerHTML=`<p>Latest post: Poster at update ng pelikula. I-download ang APK para sa mas magandang viewing experience.</p>`;
-      } else if(type==='license'){
-        title.textContent='Buy License';
-        body.innerHTML=`<p>Para bumili ng lisensya, i-message kami sa Messenger:</p><p><a href=\"https://m.me/bossjunjun09\" target=\"_blank\">https://m.me/bossjunjun09</a></p><p style=\"margin-top:8px;color:var(--muted)\">License grants access sa mas maraming kategorya at walang ads.</p>`;
-      } else if(type==='details'){
-        title.textContent=data.title||'Details';
-        body.innerHTML=`<p>${data.desc||''}</p><p style="margin-top:8px;color:var(--muted)">Para bumili ng lisensya o i-download ang app, i-click ang button sa header o footer.</p>`;
-      }
-      md.style.display='flex';
-    }
-    function closeModal(){document.getElementById('modalBackdrop').style.display='none'}
-    document.getElementById('modalBackdrop').addEventListener('click', function(e){if(e.target===this) closeModal()})
+  <nav>
+    <button onclick="openModal('about')">About</button>
+    <button onclick="openModal('movies')">Movies</button>
+    <button onclick="openModal('posts')">Posts</button>
+    <button onclick="openModal('license')">License</button>
+  </nav>
 
-    function setCover(src){document.querySelector('.cover img').src=src}
+  <div class="actions">
+    <a class="secondary" href="https://m.me/bossjunjun09" target="_blank">Buy License</a>
+    <a class="btn" id="downloadBtn" href="https://github.com/bjchack/bjc_prime/blob/main/BJC_PRIME_v1.0.1.apk" target="_blank">Download App</a>
+  </div>
+</header>
 
-    // Download button UX (browsers may block automatic downloads)
-    const downloadBtn = document.getElementById('downloadBtn');
-    if(downloadBtn){
-      downloadBtn.addEventListener('click', function(e){
-        // Keep normal navigation; show info for users
-        alert('Auto-download feature: Coming soon. Sundan ang GitHub link para makuha ang APK.');
-      });
-    }
+<main>
+  <section class="hero">
+    <div>
+      <h1 style="font-size:24px;margin-bottom:8px">Panoorin ang bagong movies — BJC PRIME</h1>
+      <p style="color:var(--muted);margin-bottom:14px">Mobile • Android TV • Coming updates</p>
 
-    // gallery highlight
-    document.querySelectorAll('.gallery img').forEach(img=>img.addEventListener('click',function(){document.querySelectorAll('.gallery img').forEach(i=>i.style.opacity=1);this.style.opacity=0.9}))
+      <div class="cover"><img id="mainCover" src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=1200" alt="Cover"></div>
 
-    // Accessibility: close modal with Escape
-    document.addEventListener('keydown',function(e){if(e.key==='Escape') closeModal()})
-  </script>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=400" onclick="setCover(this.src)">
+        <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=400" onclick="setCover(this.src)">
+        <img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=400" onclick="setCover(this.src)">
+        <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=401" onclick="setCover(this.src)">
+      </div>
+    </div>
+
+    <aside style="background:#0b1220;padding:16px;border-radius:10px">
+      <h3 style="margin-bottom:8px">Main Features</h3>
+      <ul style="padding-left:18px;color:var(--muted);font-size:14px">
+        <li>Offline Android APK</li>
+        <li>Simple UI</li>
+        <li>Buy license via Messenger</li>
+      </ul>
+      <a class="btn" href="https://m.me/bossjunjun09" target="_blank">Buy License</a>
+    </aside>
+  </section>
+
+  <!-- MOVIE SECTION -->
+  <h3 style="padding:0 20px">Mga Pelikula</h3>
+  <div class="card-list">
+    <div class="card">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=800"></div>
+      <div class="movie-title">Mystery Night</div>
+      <div class="movie-meta">Action • 2025</div>
+      <button class="secondary" onclick="openModal('details',{title:'Mystery Night',desc:'Action thriller movie'})">Details</button>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=800"></div>
+      <div class="movie-title">Journey Home</div>
+      <div class="movie-meta">Drama • 2024</div>
+      <button class="secondary" onclick="openModal('details',{title:'Journey Home',desc:'Family drama'})">Details</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <h4>Latest Post</h4>
+    <div class="post">
+      <img src="https://images.unsplash.com/photo-1517604931442-6fb9ac600f9b?q=80&w=400">
+      <div>
+        <strong>Mystery Night Poster</strong>
+        <p style="color:var(--muted);font-size:13px">Download APK or message for license</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+      <strong id="modalTitle">Title</strong>
+      <button style="background:none;border:0;color:#fff;font-size:20px;cursor:pointer" onclick="closeModal()">×</button>
+    </div>
+    <div id="modalBody" style="color:var(--muted)"></div>
+  </div>
+</div>
+
+<script>
+function setCover(src){document.getElementById('mainCover').src=src}
+
+function openModal(type,data){
+  const md=document.getElementById('modalBackdrop');
+  const title=document.getElementById('modalTitle');
+  const body=document.getElementById('modalBody');
+
+  if(type==='about'){
+    title.textContent='Tungkol sa BJC PRIME';
+    body.innerHTML='Movie platform for phone & TV.';
+  } else if(type==='movies'){
+    title.textContent='Movies';
+    body.innerHTML='<ul><li>Mystery Night</li><li>Journey Home</li></ul>';
+  } else if(type==='posts'){
+    title.textContent='Posts';
+    body.innerHTML='Latest posters and updates.';
+  } else if(type==='license'){
+    title.textContent='License';
+    body.innerHTML='<p>Message here:</p><a href="https://m.me/bossjunjun09" target="_blank">Messenger</a>';
+  } else if(type==='details'){
+    title.textContent=data.title;
+    body.innerHTML=data.desc;
+  }
+
+  md.style.display='flex';
+}
+function closeModal(){document.getElementById('modalBackdrop').style.display='none'}
+</script>
+
 </body>
 </html>
