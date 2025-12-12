@@ -1,1 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BJC PRIME — Coming Soon</title>
+  <meta name="description" content="BJC PRIME — HD movies & series. Available on Android and Desktop. License activation required for premium features." />
+  <style>
+    :root{--accent:#ff5c5c;--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#071022 0%, #0f1724 100%);color:#e6eef6}
+    .wrap{max-width:980px;margin:28px auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700}
+    h1{margin:0;font-size:22px}
+    p.lead{color:var(--muted);margin:6px 0 18px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .trailer{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px}
+    .trailer iframe{position:absolute;left:0;top:0;width:100%;height:100%}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .btn{display:inline-block;background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .small{font-size:13px;color:var(--muted)}
+    .downloads{display:flex;flex-direction:column;gap:8px}
+    .license{margin-top:10px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)}
+    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
+    @media(max-width:880px){.grid{grid-template-columns:1fr} .wrap{padding:12px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">BJC</div>
+      <div>
+        <h1>BJC PRIME — COMING SOON</h1>
+        <p class="lead">Knights of the Zodiac — HD streaming. Available sa Android at Desktop. Activate license para ma-unlock ang premium.</p>
+      </div>
+    </header>
+
+    <main class="grid" role="main">
+      <section class="card">
+        <div class="trailer">
+          <!-- YouTube embed -->
+          <iframe src="https://www.youtube.com/embed/Sko0o_KoBHY" title="Knights of the Zodiac - Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="meta">
+          <div>
+            <strong>Knights of the Zodiac</strong>
+            <div class="small">Action • Adventure • Coming Soon</div>
+          </div>
+          <div>
+            <a class="btn" href="#download">Get App</a>
+          </div>
+        </div>
+
+        <p class="small" style="margin-top:12px">
+          📽️ Trailer: official link. Para sa full streaming, i-download ang BJC PRIME app at i-activate ang license.
+        </p>
+
+        <div style="margin-top:12px" class="card">
+          <strong>Quick play (example file link)</strong>
+          <div class="small" style="margin-top:6px;word-break:break-all">http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4</div>
+          <div style="margin-top:8px">
+            <a class="btn ghost" href="watch.php?title=Knights%20of%20the%20Zodiac&file=">Open in Watch</a>
+          </div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin:0 0 8px 0">Available Platforms</h3>
+          <div class="downloads">
+            <a id="download" class="btn" href="/downloads/BJC-Prime.apk" download>Download Android APK</a>
+            <a class="btn ghost" href="/desktop">Desktop / Web Player</a>
+          </div>
+
+          <div class="license" id="license-area">
+            <strong>License Activation</strong>
+            <p class="small">Enter your license key para ma-unlock ang premium features (offline activation possible).</p>
+            <input id="lic-input" type="text" placeholder="Enter license key" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);margin-top:8px;background:transparent;color:inherit">
+            <button id="lic-btn" class="btn" style="width:100%;margin-top:8px">Activate License</button>
+            <div id="lic-msg" class="small" style="margin-top:8px;color:var(--muted)"></div>
+          </div>
+
+          <div style="margin-top:12px" class="small">
+            🔒 License required for premium playback & downloads. For help, contact support@yourdomain.com
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px;text-align:center">
+          <strong>Follow Us</strong>
+          <div style="margin-top:8px" class="small">
+            Facebook: @BJCPrime<br>Instagram: @BJCPrime
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="yr"></span> BJC PRIME — All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Simple fake activation flow (replace with real validation later)
+    document.getElementById('lic-btn').addEventListener('click', function(){
+      var key = document.getElementById('lic-input').value.trim();
+      var msg = document.getElementById('lic-msg');
+      if(!key){
+        msg.style.color = '#f6caca';
+        msg.textContent = 'Please enter your license key.';
+        return;
+      }
+
+      // Example: accept keys that start with BJC-
+      if(key.indexOf('BJC-') === 0){
+        msg.style.color = '#9ff7b3';
+        msg.textContent = 'License activated! Enjoy premium features.';
+        // store locally
+        localStorage.setItem('bjc_license', key);
+      } else {
+        msg.style.color = '#f6caca';
+        msg.textContent = 'Invalid license key. Check and try again.';
+      }
+    });
+
+    // Auto-fill if license stored
+    (function(){
+      var k = localStorage.getItem('bjc_license');
+      if(k) {
+        document.getElementById('lic-input').value = k;
+        document.getElementById('lic-msg').textContent = 'License active (saved).';
+      }
+    })();
+  </script>
+</body>
+</html>
 
