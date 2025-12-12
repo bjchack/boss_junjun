@@ -24,7 +24,7 @@
     .small{font-size:13px;color:var(--muted)}
     .downloads{display:flex;flex-direction:column;gap:8px}
     .license{margin-top:10px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)}
-    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
+    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center;line-height:20px}
     @media(max-width:880px){.grid{grid-template-columns:1fr} .wrap{padding:12px}}
   </style>
 </head>
@@ -34,15 +34,17 @@
       <div class="logo">BJC</div>
       <div>
         <h1>BJC PRIME — COMING SOON</h1>
-        <p class="lead">Knights of the Zodiac — HD streaming. Available sa Android at Desktop. Activate license para ma-unlock ang premium.</p>
+        <p class="lead">Knights of the Zodiac — HD streaming. Android & Desktop support. Activate license to unlock premium.</p>
       </div>
     </header>
 
-    <main class="grid" role="main">
+    <main class="grid">
       <section class="card">
         <div class="trailer">
-          <!-- YouTube embed -->
-          <iframe src="https://www.youtube.com/embed/Sko0o_KoBHY" title="Knights of the Zodiac - Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/Sko0o_KoBHY" 
+            title="Knights of the Zodiac - Trailer" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen></iframe>
         </div>
 
         <div class="meta">
@@ -50,20 +52,22 @@
             <strong>Knights of the Zodiac</strong>
             <div class="small">Action • Adventure • Coming Soon</div>
           </div>
-          <div>
-            <a class="btn" href="#download">Get App</a>
-          </div>
+          <a class="btn" href="#download">Get App</a>
         </div>
 
         <p class="small" style="margin-top:12px">
-          📽️ Trailer: official link. Para sa full streaming, i-download ang BJC PRIME app at i-activate ang license.
+          📽️ Official Trailer above. Full streaming available only inside the BJC PRIME App after license activation.
         </p>
 
         <div style="margin-top:12px" class="card">
-          <strong>Quick play (example file link)</strong>
-          <div class="small" style="margin-top:6px;word-break:break-all">http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4</div>
+          <strong>Sample Movie Link</strong>
+          <div class="small" style="margin-top:6px;word-break:break-all">
+            http://188.210.209.2/EDI/Movies/Avengers.Infinity.War.2018.1080p.BluRay.x264-[YTS.AM].mp4
+          </div>
           <div style="margin-top:8px">
-            <a class="btn ghost" href="watch.php?title=Knights%20of%20the%20Zodiac&file=">Open in Watch</a>
+            <a class="btn ghost" href="watch.php?title=Knights%20of%20the%20Zodiac&file=">
+              Open in Watch Page
+            </a>
           </div>
         </div>
       </section>
@@ -73,70 +77,85 @@
           <h3 style="margin:0 0 8px 0">Available Platforms</h3>
           <div class="downloads">
             <a id="download" class="btn" href="/downloads/BJC-Prime.apk" download>Download Android APK</a>
-            <a class="btn ghost" href="/desktop">Desktop / Web Player</a>
+            <a class="btn ghost" href="/desktop">Desktop / PC Version</a>
           </div>
 
-          <div class="license" id="license-area">
+          <!-- LICENSE AREA -->
+          <div class="license">
             <strong>License Activation</strong>
-            <p class="small">Enter your license key para ma-unlock ang premium features (offline activation possible).</p>
-            <input id="lic-input" type="text" placeholder="Enter license key" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);margin-top:8px;background:transparent;color:inherit">
+            <p class="small">Enter your license key to unlock premium HD streaming.</p>
+
+            <input id="lic-input" type="text" placeholder="Enter license key" 
+              style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff;margin-top:8px">
+
             <button id="lic-btn" class="btn" style="width:100%;margin-top:8px">Activate License</button>
-            <div id="lic-msg" class="small" style="margin-top:8px;color:var(--muted)"></div>
+
+            <div id="lic-msg" class="small" style="margin-top:8px"></div>
           </div>
 
           <div style="margin-top:12px" class="small">
-            🔒 License required for premium playback & downloads. For help, contact support@yourdomain.com
+            🔒 Premium playback requires valid license. Message us if you need help.
           </div>
         </div>
 
         <div class="card" style="margin-top:12px;text-align:center">
           <strong>Follow Us</strong>
           <div style="margin-top:8px" class="small">
-            Facebook: @BJCPrime<br>Instagram: @BJCPrime
+            Facebook: 
+            <a href="https://www.facebook.com/bossjunjun09" target="_blank" style="color:#ff5c5c;text-decoration:none">
+              fb.com/bossjunjun09
+            </a>
           </div>
         </div>
       </aside>
     </main>
 
+    <!-- FOOTER UPDATED WITH COPYRIGHT + FB LINK -->
     <footer>
-      © <span id="yr"></span> BJC PRIME — All rights reserved.
+      © <span id="yr"></span> BJC PRIME • All Rights Reserved<br>
+      <strong>BJC Team</strong> — 
+      <a href="https://www.facebook.com/bossjunjun09" target="_blank" 
+         style="color:#ff5c5c;text-decoration:none">
+         www.facebook.com/bossjunjun09
+      </a>
     </footer>
   </div>
 
   <script>
+    // Set Year
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Simple fake activation flow (replace with real validation later)
+    // Simple License Checker
     document.getElementById('lic-btn').addEventListener('click', function(){
       var key = document.getElementById('lic-input').value.trim();
       var msg = document.getElementById('lic-msg');
+
       if(!key){
         msg.style.color = '#f6caca';
         msg.textContent = 'Please enter your license key.';
         return;
       }
 
-      // Example: accept keys that start with BJC-
-      if(key.indexOf('BJC-') === 0){
+      if(key.startsWith("BJC-")){
         msg.style.color = '#9ff7b3';
-        msg.textContent = 'License activated! Enjoy premium features.';
-        // store locally
+        msg.textContent = 'License activated! Premium unlocked.';
         localStorage.setItem('bjc_license', key);
       } else {
         msg.style.color = '#f6caca';
-        msg.textContent = 'Invalid license key. Check and try again.';
+        msg.textContent = 'Invalid key. Try again.';
       }
     });
 
-    // Auto-fill if license stored
+    // Auto load saved license
     (function(){
-      var k = localStorage.getItem('bjc_license');
-      if(k) {
-        document.getElementById('lic-input').value = k;
+      var saved = localStorage.getItem('bjc_license');
+      if(saved){
+        document.getElementById('lic-input').value = saved;
+        document.getElementById('lic-msg').style.color = '#9ff7b3';
         document.getElementById('lic-msg').textContent = 'License active (saved).';
       }
     })();
   </script>
+
 </body>
 </html>
-
