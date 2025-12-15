@@ -1,0 +1,17 @@
+function generateLicense(){
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const rand = () => Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join("");
+    const base = `BJC-2025-${rand()}`;
+    const secret = "BJC_PRIME_2025";
+
+    let h = 0;
+    for(let i=0;i<(base+secret).length;i++){
+        h = (h<<5) - h + (base+secret).charCodeAt(i);
+        h |= 0;
+    }
+
+    const check = Math.abs(h).toString(36).toUpperCase().substring(0,4);
+    return `${base}-${check}`;
+}
+
+console.log(generateLicense());
