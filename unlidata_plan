@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UnliData Connected</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    text-align:center;
+}
+
+.container{
+    padding:20px;
+}
+
+.header{
+    background:rgba(0,0,0,0.4);
+    padding:20px;
+    border-radius:15px;
+    margin-top:20px;
+    box-shadow:0 0 15px rgba(0,0,0,0.5);
+}
+
+h1{
+    color:#00ffcc;
+}
+
+.details{
+    margin-top:15px;
+    font-size:16px;
+    line-height:1.6;
+}
+
+#countdown{
+    font-size:22px;
+    margin-top:20px;
+    color:#ffcc00;
+    font-weight:bold;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+.expire-btn{
+    background:red;
+    color:white;
+    display:none;
+}
+
+.msg-btn{
+    background:#00ffcc;
+    color:black;
+}
+
+.footer{
+    margin-top:40px;
+    font-size:13px;
+    opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>🎉 Congratulations Maam Monyheng!</h1>
+<p class="details">
+You are connected to <b>UNLIDATA</b><br>
+Date: Feb 25, 2026<br>
+Time: 12:20 AM<br>
+Expire: 30 Days
+</p>
+
+<div id="countdown"></div>
+
+<button class="expire-btn" id="expireBtn">EXPIRED</button>
+
+<br>
+
+<a href="https://m.me/bossjunjun09" target="_blank">
+<button class="msg-btn">Message Boss Junjun</button>
+</a>
+
+</div>
+
+<div class="footer">
+© 2026 BJC TEAM - All Rights Reserved
+</div>
+
+</div>
+
+<script>
+
+// ====== SET START DATE ======
+let startDate = new Date("2026-02-25T00:20:00").getTime();
+
+// ====== ADD 30 DAYS ======
+let expireDate = startDate + (30 * 24 * 60 * 60 * 1000);
+
+let countdown = setInterval(function(){
+
+    let now = new Date().getTime();
+    let distance = expireDate - now;
+
+    if(distance <= 0){
+        clearInterval(countdown);
+        document.getElementById("countdown").innerHTML = "⚠ CONNECTION EXPIRED";
+        document.getElementById("expireBtn").style.display = "inline-block";
+        return;
+    }
+
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+    "Remaining: " + days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+
+},1000);
+
+</script>
+
+</body>
+</html>
