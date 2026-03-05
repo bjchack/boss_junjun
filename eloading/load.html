@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Load Customers</title>
+
+<!-- GOOGLE ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4569382395788547"
+crossorigin="anonymous"></script>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+header{
+background:#0099cc;
+color:white;
+padding:15px;
+text-align:center;
+font-size:22px;
+}
+
+.container{
+padding:20px;
+background:white;
+margin:20px;
+border-radius:10px;
+}
+
+.promo{
+text-align:center;
+padding:20px;
+}
+
+.promo img{
+width:260px;
+margin:10px;
+border-radius:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.promo img:hover{
+transform:scale(1.05);
+}
+
+/* IMAGE VIEWER */
+
+.viewer{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+justify-content:center;
+align-items:center;
+}
+
+.viewer img{
+max-width:90%;
+max-height:90%;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+/* ADS */
+.ad-container{
+  display:flex;
+  justify-content:center;
+  margin:15px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+HOW TO LOAD CUSTOMERS
+</header>
+
+<!-- TOP AD -->
+<div class="ad-container">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4569382395788547"
+       data-ad-slot="1234567890"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<div class="container">
+
+<h2>Guide: How to Load Using Gateway</h2>
+
+<p>1. Open your Load Gateway system.</p>
+<p>2. Enter the customer's mobile number.</p>
+<p>3. Select the network.</p>
+<p>4. Choose the promo.</p>
+<p>5. Click SEND LOAD.</p>
+<p>6. Wait for confirmation message.</p>
+
+</div>
+
+<div class="promo">
+
+<h2>Load Promos</h2>
+
+<img src="images/promo1.jpg" onclick="view(this)">
+<img src="images/promo2.jpg" onclick="view(this)">
+<img src="images/promo3.jpg" onclick="view(this)">
+<img src="images/promo4.jpg" onclick="view(this)">
+<img src="images/promo5.jpg" onclick="view(this)">
+<img src="images/promo6.jpg" onclick="view(this)">
+<img src="images/promo7.jpg" onclick="view(this)">
+<img src="images/promo8.jpg" onclick="view(this)">
+<img src="images/promo9.jpg" onclick="view(this)">
+
+</div>
+
+<!-- BOTTOM AD -->
+<div class="ad-container">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4569382395788547"
+       data-ad-slot="1234567891"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<div class="viewer" id="viewer" onclick="closeView()">
+<img id="viewImg">
+</div>
+
+<footer>
+© 2026 Load Business System
+</footer>
+
+<script>
+
+function view(img){
+document.getElementById("viewer").style.display="flex";
+document.getElementById("viewImg").src=img.src;
+}
+
+function closeView(){
+document.getElementById("viewer").style.display="none";
+}
+
+</script>
+
+</body>
+</html>
