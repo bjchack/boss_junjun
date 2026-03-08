@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Load Business</title>
+
+<!-- GOOGLE ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4569382395788547"
+crossorigin="anonymous"></script>
+
+<style>
+
+body{
+font-family: Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+/* HEADER */
+
+header{
+background:#0099cc;
+color:white;
+padding:15px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+}
+
+/* MENU */
+
+.menu{
+background:#333;
+overflow:hidden;
+}
+
+.menu a{
+float:left;
+display:block;
+color:white;
+text-align:center;
+padding:14px 16px;
+text-decoration:none;
+}
+
+.menu a:hover{
+background:#00bfff;
+}
+
+/* SEARCH */
+
+.search-box{
+padding:20px;
+text-align:center;
+}
+
+.search-box input{
+width:70%;
+padding:10px;
+font-size:16px;
+}
+
+/* TESTIMONY */
+
+.testimony{
+padding:20px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:white;
+width:220px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+overflow:hidden;
+text-align:center;
+}
+
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+cursor:pointer;
+}
+
+.card p{
+padding:10px;
+font-size:14px;
+}
+
+/* IMAGE VIEWER */
+
+.viewer{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.viewer img{
+max-width:90%;
+max-height:90%;
+border-radius:10px;
+}
+
+/* UPDATE POPUP */
+
+.updateBox{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+justify-content:center;
+align-items:center;
+z-index:2000;
+}
+
+.updateContent{
+background:white;
+padding:25px;
+border-radius:10px;
+text-align:center;
+width:280px;
+}
+
+.updateContent h3{
+color:#0099cc;
+}
+
+.updateContent button{
+background:#0099cc;
+color:white;
+border:none;
+padding:10px 20px;
+margin-top:10px;
+border-radius:5px;
+cursor:pointer;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- UPDATE POPUP -->
+
+<div class="updateBox" id="updateBox">
+
+<div class="updateContent">
+
+<h3>New Version Available</h3>
+
+<p id="updateText">Checking version...</p>
+
+<button onclick="updateApp()">UPDATE NOW</button>
+
+</div>
+
+</div>
+
+<header>
+LOAD BUSINESS SYSTEM
+</header>
+
+<div class="menu">
+<a href="load.html">How To Load Customers</a>
+<a href="gsat.html">GSAT</a>
+<a href="cable.html">CABLE</a>
+<a href="games.html">GAMES LOAD</a>
+</div>
+
+<div class="search-box">
+<input type="text" placeholder="Search services...">
+</div>
+
+<!-- ADSENSE -->
+<div style="text-align:center; margin:20px;">
+
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4569382395788547"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+<h2 style="text-align:center">Customer Testimonies</h2>
+
+<div class="testimony">
+
+<div class="card">
+<img src="images/t/test1.jpg" onclick="view(this)">
+<p>Salamat boss mabilis ang load. Legit service!</p>
+</div>
+
+<div class="card">
+<img src="images/t/test2.jpg" onclick="view(this)">
+<p>First time ko mag load business. Malaki kita dito.</p>
+</div>
+
+<div class="card">
+<img src="images/t/test3.jpg" onclick="view(this)">
+<p>Very fast transaction. Trusted seller.</p>
+</div>
+
+<div class="card">
+<img src="images/t/test4.jpg" onclick="view(this)">
+<p>Nakaka earn na ako sa bahay lang.</p>
+</div>
+
+</div>
+
+<div class="viewer" id="viewer" onclick="closeView()">
+<img id="viewImg">
+</div>
+
+<footer>
+© 2026 Load Business System | All Rights Reserved
+</footer>
+
+<script>
+
+/* IMAGE VIEW */
+
+function view(img){
+  document.getElementById("viewer").style.display="flex";
+  document.getElementById("viewImg").src = img.src;
+}
+
+function closeView(){
+  document.getElementById("viewer").style.display="none";
+}
+
+/* VERSION CHECK (dynamic from version.txt) */
+
+var currentVersion = "1.0";
+
+fetch('http://www.bjcprogramming.store/eloading/version.txt')
+  .then(response => response.text())
+  .then(text => {
+    var lines = text.trim().split("\n");
+    var latestVersion = lines[0].trim();
+    var apkLink = lines[1] ? lines[1].trim() : "http://www.bjcprogramming.store/eloading/Eloading.apk";
+
+    if(currentVersion !== latestVersion){
+      document.getElementById("updateBox").style.display="flex";
+      document.getElementById("updateText").innerHTML =
+        "Your version: " + currentVersion + "<br>Latest version: " + latestVersion;
+
+      document.querySelector(".updateContent button").onclick = function(){
+        window.location.href = apkLink;
+      }
+    }
+  })
+  .catch(err => console.log("Version check failed:", err));
+
+</script>
+
+</body>
+</html>
