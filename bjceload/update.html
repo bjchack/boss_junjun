@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update BJC Eload</title>
+  <style>
+    body { background:#111; color:white; font-family:sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
+    button { padding:12px 20px; font-size:16px; border:none; border-radius:6px; background:#ff9800; color:black; cursor:pointer; margin-top:20px; }
+  </style>
+</head>
+<body>
+  <h2>May bagong update sa BJC Eload!</h2>
+  <p>Version: <span id="version"></span></p>
+  <p id="notes"></p>
+  <button id="downloadBtn">Download & Install</button>
+
+  <script>
+    fetch('version.json')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('version').innerText = data.version;
+      document.getElementById('notes').innerText = data.notes;
+      document.getElementById('downloadBtn').onclick = () => {
+        window.location.href = data.apk;
+      }
+    })
+    .catch(err => console.log('Error loading version.json', err));
+  </script>
+</body>
+</html>
