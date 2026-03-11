@@ -5,8 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Update BJC Eload</title>
   <style>
-    body { background:#111; color:white; font-family:sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
-    button { padding:12px 20px; font-size:16px; border:none; border-radius:6px; background:#ff9800; color:black; cursor:pointer; margin-top:20px; }
+    body { 
+      background:#111; 
+      color:white; 
+      font-family:sans-serif; 
+      display:flex; 
+      flex-direction:column; 
+      align-items:center; 
+      justify-content:center; 
+      height:100vh; 
+      text-align:center;
+    }
+    button { 
+      padding:12px 20px; 
+      font-size:16px; 
+      border:none; 
+      border-radius:6px; 
+      background:#ff9800; 
+      color:black; 
+      cursor:pointer; 
+      margin-top:20px; 
+    }
+    button:disabled {
+      background:#888; 
+      cursor:not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -17,15 +40,28 @@
 
   <script>
     fetch('version.json')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('version').innerText = data.version;
-      document.getElementById('notes').innerText = data.notes;
-      document.getElementById('downloadBtn').onclick = () => {
-        window.location.href = data.apk;
-      }
-    })
-    .catch(err => console.log('Error loading version.json', err));
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('version').innerText = data.version;
+        document.getElementById('notes').innerText = data.notes;
+
+        const btn = document.getElementById('downloadBtn');
+        btn.onclick = () => {
+          // Disable button agad para hindi ma-double click
+          btn.disabled = true;
+          btn.innerText = "Downloading...";
+
+          // Redirect sa APK
+          window.location.href = data.apk;
+
+          // Optional: ibalik ang button after 10 seconds kung may problema
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.innerText = "Download & Install";
+          }, 10000); 
+        }
+      })
+      .catch(err => console.log('Error loading version.json', err));
   </script>
 </body>
 </html>
