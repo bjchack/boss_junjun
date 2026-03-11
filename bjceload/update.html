@@ -5,31 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Update BJC Eload</title>
   <style>
-    body { 
-      background:#111; 
-      color:white; 
-      font-family:sans-serif; 
-      display:flex; 
-      flex-direction:column; 
-      align-items:center; 
-      justify-content:center; 
-      height:100vh; 
-      text-align:center;
-    }
-    button { 
-      padding:12px 20px; 
-      font-size:16px; 
-      border:none; 
-      border-radius:6px; 
-      background:#ff9800; 
-      color:black; 
-      cursor:pointer; 
-      margin-top:20px; 
-    }
-    button:disabled {
-      background:#888; 
-      cursor:not-allowed;
-    }
+    body { background:#111; color:white; font-family:sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
+    button { padding:12px 20px; font-size:16px; border:none; border-radius:6px; background:#ff9800; color:black; cursor:pointer; margin-top:20px; }
+    p { text-align:center; max-width:300px; }
+    #downloadBtn:disabled { background:#555; cursor:not-allowed; }
   </style>
 </head>
 <body>
@@ -37,31 +16,31 @@
   <p>Version: <span id="version"></span></p>
   <p id="notes"></p>
   <button id="downloadBtn">Download & Install</button>
+  <p id="instructions"></p>
 
   <script>
-    fetch('version.json')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('version').innerText = data.version;
-        document.getElementById('notes').innerText = data.notes;
+    const downloadBtn = document.getElementById('downloadBtn');
+    const instructions = document.getElementById('instructions');
 
-        const btn = document.getElementById('downloadBtn');
-        btn.onclick = () => {
-          // Disable button agad para hindi ma-double click
-          btn.disabled = true;
-          btn.innerText = "Downloading...";
+    fetch('https://www.bjcprogramming.store/bjceload/version.json')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('version').innerText = data.version;
+      document.getElementById('notes').innerText = data.notes;
 
-          // Redirect sa APK
-          window.location.href = data.apk;
+      downloadBtn.onclick = () => {
+        // Disable button para hindi ma-double click
+        downloadBtn.disabled = true;
+        downloadBtn.innerText = "Downloading...";
+        
+        // Redirect sa APK (browser will download)
+        window.location.href = data.apk;
 
-          // Optional: ibalik ang button after 10 seconds kung may problema
-          setTimeout(() => {
-            btn.disabled = false;
-            btn.innerText = "Download & Install";
-          }, 10000); 
-        }
-      })
-      .catch(err => console.log('Error loading version.json', err));
+        // Show instruction para sa user
+        instructions.innerText = "After download, tap the APK in your Downloads folder to install/update the app.";
+      }
+    })
+    .catch(err => console.log('Error loading version.json', err));
   </script>
 </body>
 </html>
