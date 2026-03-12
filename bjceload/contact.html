@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us - BJC Programming</title>
+<style>
+  body {
+    margin:0; padding:0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 400px;
+    gap: 15px;
+  }
+
+  input, textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #222;
+    color: #fff;
+    font-size: 16px;
+    resize: none;
+    transition: 0.2s;
+  }
+
+  input:focus, textarea:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 5px #1a73e8;
+    outline: none;
+  }
+
+  button {
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(45deg, #00ff9d, #1a73e8);
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background: linear-gradient(45deg, #1a73e8, #00ff9d);
+    transform: translateY(-2px);
+  }
+
+  #backBtn {
+    margin-top: 30px;
+    background-color: orange;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  #backBtn:hover {
+    background-color: #ffc107;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 10px;
+    font-size: 12px;
+    color: #888;
+    width: 100%;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>Contact Us</h1>
+
+<form action="https://whoareyou.free.nf/email/send_email.php" method="POST" id="contactForm">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+  <button type="submit">Send Message</button>
+</form>
+
+<div id="backBtn" onclick="window.location.href='index.html'">
+  ←
+</div>
+
+<div class="footer">&copy; 2026 BJC Programming. All rights reserved.</div>
+
+</body>
+</html>
