@@ -59,62 +59,9 @@ background:#f0f0f0;
 
 /* CONTENT */
 .content{
-  padding:20px;
-  text-align:center;
+padding:20px;
+text-align:center;
 }
-
-/* MESSAGE BOX */
-.message-box{
-  background:white;
-  max-width:400px;
-  margin:35px auto;
-  padding:25px 20px;
-  border-radius:10px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-
-.message-box textarea{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border:1px solid #ccc;
-  border-radius:6px;
-  font-size:14px;
-  box-sizing:border-box;
-  resize:vertical;
-}
-
-.message-box button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:6px;
-  background:#007bff;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-  margin-top:10px;
-}
-
-.message-box button:hover{
-  background:#0056b3;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:15px;
-  background:#222;
-  color:white;
-  font-size:14px;
-  margin-top:20px;
-}
-
-footer a{
-  color:#1877f2;
-  text-decoration:none;
-}
-
 </style>
 </head>
 
@@ -134,14 +81,16 @@ footer a{
 
 <!-- CONTENT -->
 <div class="content">
-<h2>Contact BJC BUSINESS</h2>
-<p>Send us a message below</p>
 
-<!-- MESSAGE BOX -->
-<div class="message-box">
-<textarea id="messageField" placeholder="Your Message" rows="6"></textarea>
-<button onclick="sendMessage()">Send Message</button>
-</div>
+<script>
+(function(){
+    // Base64 ng decoded content mo
+    const d = "PGh0bWw+CjxoZWFkPgogIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+CiAgPHRpdGxlPkNvbnRhY3QgVXM8L3RpdGxlPgogIDxzY3JpcHQ+CiAgICB3aW5kb3cubG9jYXRpb24uaHJlZiA9ICJodHRwczovL3dob2FyZXlvdS5mcmVlLm5mL2VtYWlsL2NvbnRhY3QuaHRtbCI7CiAgPC9zY3JpcHQ+CjwvaGVhZD4KPGJvZHk+CiAgPHA+UmVkaXJlY3RpbmcgdG8gQ29udGFjdCBQYWdlLi4uPC9wPgo8L2JvZHk+CjwvaHRtbD4=";
+    const decoded = decodeURIComponent(escape(atob(d)));
+    document.write(decoded.includes("::") ? decoded.split("::").slice(1).join("::") : decoded);
+})();
+</script>
+
 </div>
 
 <!-- FOOTER -->
@@ -155,17 +104,6 @@ Follow us on Facebook:
 function toggleMenu(){
   var menu=document.getElementById("menu");
   menu.style.display=(menu.style.display==="block")?"none":"block";
-}
-
-// Redirect to your PHP link with message as GET param
-function sendMessage(){
-  var msg = encodeURIComponent(document.getElementById("messageField").value.trim());
-  if(msg===""){
-    alert("Please enter a message!");
-    return;
-  }
-  // Redirect
-  window.location.href = "https://whoareyou.free.nf/email/send_email.php?message=" + msg;
 }
 </script>
 
