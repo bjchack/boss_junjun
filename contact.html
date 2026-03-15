@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BJC Tool</title>
+<title>Contact BJC BUSINESS</title>
 
 <style>
 body{
@@ -63,33 +63,28 @@ background:#f0f0f0;
   text-align:center;
 }
 
-/* CONTACT FORM */
-.contact-form{
+/* MESSAGE BOX */
+.message-box{
   background:white;
   max-width:400px;
   margin:35px auto;
-  padding:30px;
+  padding:25px 20px;
   border-radius:10px;
   box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
-.contact-form h3{
-  margin-bottom:30px;
-}
-
-/* Pantay na spacing sa lahat ng input at textarea */
-.contact-form input,
-.contact-form textarea{
+.message-box textarea{
   width:100%;
   padding:12px;
-  margin:10px 0; /* consistent margin sa taas at baba */
+  margin:10px 0;
   border:1px solid #ccc;
   border-radius:6px;
   font-size:14px;
-  box-sizing:border-box; /* para laging kasya sa width */
+  box-sizing:border-box;
+  resize:vertical;
 }
 
-.contact-form button{
+.message-box button{
   width:100%;
   padding:12px;
   border:none;
@@ -98,10 +93,10 @@ background:#f0f0f0;
   color:white;
   font-size:16px;
   cursor:pointer;
-  margin-top:10px; /* extra space sa button */
+  margin-top:10px;
 }
 
-.contact-form button:hover{
+.message-box button:hover{
   background:#0056b3;
 }
 
@@ -127,32 +122,25 @@ footer a{
 
 <!-- COVER -->
 <div class="cover">
-
 <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
 <div class="menu" id="menu">
 <a href="index.html">Home</a>
 <a href="generator.html">License Generator</a>
-<a href="contact.html">Contact</a>
-<a href="#">About</a>
+<a href="#">Contact</a>
+<a href="about.html">About</a>
 </div>
-
 </div>
 
 <!-- CONTENT -->
 <div class="content">
 <h2>Contact BJC BUSINESS</h2>
-<p>Send us a message via the form below</p>
+<p>Send us a message below</p>
 
-<!-- CONTACT FORM -->
-<div class="contact-form">
-<h3>Contact Form</h3>
-<form action="https://whoareyou.free.nf/email/send_email.php" method="POST">
-<input type="text" name="name" placeholder="Your Name" required>
-<input type="email" name="email" placeholder="Your Email" required>
-<textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-<button type="submit">Send Message</button>
-</form>
+<!-- MESSAGE BOX -->
+<div class="message-box">
+<textarea id="messageField" placeholder="Your Message" rows="6"></textarea>
+<button onclick="sendMessage()">Send Message</button>
 </div>
 </div>
 
@@ -165,8 +153,19 @@ Follow us on Facebook:
 
 <script>
 function toggleMenu(){
-var menu=document.getElementById("menu");
-menu.style.display=(menu.style.display==="block")?"none":"block";
+  var menu=document.getElementById("menu");
+  menu.style.display=(menu.style.display==="block")?"none":"block";
+}
+
+// Redirect to your PHP link with message as GET param
+function sendMessage(){
+  var msg = encodeURIComponent(document.getElementById("messageField").value.trim());
+  if(msg===""){
+    alert("Please enter a message!");
+    return;
+  }
+  // Redirect
+  window.location.href = "https://whoareyou.free.nf/email/send_email.php?message=" + msg;
 }
 </script>
 
