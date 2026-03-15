@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BJC Tool</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#f4f4f4;
+}
+
+/* COVER */
+.cover{
+width:100%;
+height:200px;
+background:url("cover.jpg") center/cover no-repeat;
+position:relative;
+}
+
+/* MENU ICON */
+.menu-icon{
+position:absolute;
+top:15px;
+left:15px;
+font-size:28px;
+color:white;
+cursor:pointer;
+background:rgba(0,0,0,0.4);
+padding:5px 10px;
+border-radius:5px;
+}
+
+/* DROPDOWN */
+.menu{
+display:none;
+position:absolute;
+top:50px;
+left:15px;
+background:white;
+border-radius:5px;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+overflow:hidden;
+}
+
+.menu a{
+display:block;
+padding:12px 20px;
+text-decoration:none;
+color:black;
+border-bottom:1px solid #eee;
+}
+
+.menu a:hover{
+background:#f0f0f0;
+}
+
+/* CONTENT */
+.content{
+padding:20px;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="cover">
+
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+<div class="menu" id="menu">
+<a href="tool.html">Bandlocking Tool</a>
+<a href="generator.html">License Generator</a>
+<a href="scan.html">Barcode Scanner</a>
+<a href="about.html">About</a>
+</div>
+
+</div>
+
+<div class="content">
+<h2>Welcome to BJC Tool</h2>
+<p>Select menu to open tools</p>
+</div>
+
+<script>
+function toggleMenu(){
+var menu=document.getElementById("menu");
+
+if(menu.style.display==="block"){
+menu.style.display="none";
+}else{
+menu.style.display="block";
+}
+}
+</script>
+
+</body>
+</html>
