@@ -1,110 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact BJC BUSINESS</title>
+<title>Contact Us</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+
 body{
-margin:0;
-font-family:Arial, sans-serif;
-background:#f4f4f4;
-}
-
-/* COVER */
-.cover{
-width:100%;
-height:200px;
-background:url("images/cover.png") center/cover no-repeat;
-position:relative;
-}
-
-/* MENU ICON */
-.menu-icon{
-position:absolute;
-top:10px;
-left:10px;
-font-size:20px;
-color:white;
-cursor:pointer;
-background:rgba(0,0,0,0.4);
-padding:5px 10px;
-border-radius:5px;
-}
-
-/* DROPDOWN */
-.menu{
-display:none;
-position:absolute;
-top:50px;
-left:15px;
-background:white;
-border-radius:5px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
-overflow:hidden;
-}
-
-.menu a{
-display:block;
-padding:12px 20px;
-text-decoration:none;
-color:black;
-border-bottom:1px solid #eee;
-}
-
-.menu a:hover{
-background:#f0f0f0;
-}
-
-/* CONTENT */
-.content{
+font-family:Arial;
+background:#f2f2f2;
 padding:20px;
+}
+
+.container{
+max-width:400px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h2{
 text-align:center;
 }
+
+input, textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#007BFF;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0056b3;
+}
+
+#success{
+display:none;
+text-align:center;
+background:#28a745;
+color:white;
+padding:10px;
+border-radius:5px;
+margin-top:10px;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- COVER -->
-<div class="cover">
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
+<div class="container">
 
-<div class="menu" id="menu">
-<a href="index.html">Home</a>
-<a href="generator.html">License Generator</a>
-<a href="contact">Contact</a>
-<a href="about.html">About</a>
-</div>
+<h2>Contact Us</h2>
+
+<form id="contact-form">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<input type="email" name="email" placeholder="Your Email" required>
+
+<textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+<button type="submit">Send Message</button>
+
+</form>
+
+<div id="success">
+Message Sent Successfully ✅
 </div>
 
-<!-- CONTENT -->
-<div class="content">
+</div>
 
 <script>
-(function(){
-    // Base64 ng decoded content mo
-    const d = "PGh0bWw+CjxoZWFkPgogIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+CiAgPHRpdGxlPkNvbnRhY3QgVXM8L3RpdGxlPgogIDxzY3JpcHQ+CiAgICB3aW5kb3cubG9jYXRpb24uaHJlZiA9ICJodHRwczovL3dob2FyZXlvdS5mcmVlLm5mL2VtYWlsL2NvbnRhY3QuaHRtbCI7CiAgPC9zY3JpcHQ+CjwvaGVhZD4KPGJvZHk+CiAgPHA+UmVkaXJlY3RpbmcgdG8gQ29udGFjdCBQYWdlLi4uPC9wPgo8L2JvZHk+CjwvaHRtbD4=";
-    const decoded = decodeURIComponent(escape(atob(d)));
-    document.write(decoded.includes("::") ? decoded.split("::").slice(1).join("::") : decoded);
-})();
-</script>
 
-</div>
+document.getElementById("contact-form").addEventListener("submit", function(e){
 
-<!-- FOOTER -->
-<footer>
-&copy; 2026 BJC BUSINESS. All Rights Reserved. <br>
-Follow us on Facebook: 
-<a href="https://www.facebook.com/bossjunjun09" target="_blank">Jun Cruz</a>
-</footer>
+e.preventDefault();
 
-<script>
-function toggleMenu(){
-  var menu=document.getElementById("menu");
-  menu.style.display=(menu.style.display==="block")?"none":"block";
-}
+let formData = new FormData(this);
+
+fetch("https://formsubmit.co/ajax/hackerownme@gmail.com", {
+method: "POST",
+body: formData
+})
+.then(response => response.json())
+.then(data => {
+
+document.getElementById("success").style.display="block";
+
+document.getElementById("contact-form").reset();
+
+})
+.catch(error => alert("Error sending message"));
+
+});
+
 </script>
 
 </body>
