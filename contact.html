@@ -11,24 +11,39 @@ input,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border
 button{width:100%;padding:12px;background:#007BFF;color:white;border:none;border-radius:5px;font-size:16px;cursor:pointer;}
 button:hover{background:#0056b3;}
 #success{display:none;text-align:center;background:#28a745;color:white;padding:10px;border-radius:5px;margin-top:10px;}
+.fb-button{display:block;text-align:center;margin-top:10px;}
+.fb-button a{background:#1877F2;color:white;padding:10px 20px;border-radius:5px;text-decoration:none;}
+.fb-button a:hover{background:#0e5abf;}
 </style>
 </head>
 <body>
+
 <div class="container">
 <h2>Contact Us</h2>
+
 <form id="contact-form">
 <input type="text" name="name" placeholder="Your Name" required>
 <input type="email" name="email" placeholder="Your Email" required>
 <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
 <button type="submit">Send Message</button>
 </form>
+
 <div id="success">Message Sent Successfully ✅</div>
+
+<div class="fb-button">
+<a href="https://www.facebook.com/bossjunjun09" target="_blank">Chat with us on Facebook</a>
 </div>
+</div>
+
 <script>
 document.getElementById("contact-form").addEventListener("submit", function(e){
 e.preventDefault();
 let formData = new FormData(this);
-fetch("https://formsubmit.co/ajax/hackerownme@gmail.com", {method:"POST",body:formData})
+
+fetch("https://formsubmit.co/ajax/hackerownme@gmail.com", {
+method:"POST",
+body:formData
+})
 .then(response => response.json())
 .then(data => {
 document.getElementById("success").style.display="block";
@@ -37,5 +52,6 @@ document.getElementById("contact-form").reset();
 .catch(error => alert("Error sending message"));
 });
 </script>
+
 </body>
 </html>
