@@ -3,113 +3,39 @@
 <head>
 <title>Contact Us</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-
-body{
-font-family:Arial;
-background:#f2f2f2;
-padding:20px;
-}
-
-.container{
-max-width:400px;
-margin:auto;
-background:#fff;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-
-h2{
-text-align:center;
-}
-
-input, textarea{
-width:100%;
-padding:10px;
-margin:8px 0;
-border:1px solid #ccc;
-border-radius:5px;
-}
-
-button{
-width:100%;
-padding:12px;
-background:#007BFF;
-color:white;
-border:none;
-border-radius:5px;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-background:#0056b3;
-}
-
-#success{
-display:none;
-text-align:center;
-background:#28a745;
-color:white;
-padding:10px;
-border-radius:5px;
-margin-top:10px;
-}
-
+body{font-family:Arial;background:#f2f2f2;padding:20px;}
+.container{max-width:400px;margin:auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.1);}
+h2{text-align:center;}
+input,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:5px;}
+button{width:100%;padding:12px;background:#007BFF;color:white;border:none;border-radius:5px;font-size:16px;cursor:pointer;}
+button:hover{background:#0056b3;}
+#success{display:none;text-align:center;background:#28a745;color:white;padding:10px;border-radius:5px;margin-top:10px;}
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
 <h2>Contact Us</h2>
-
 <form id="contact-form">
-
 <input type="text" name="name" placeholder="Your Name" required>
-
 <input type="email" name="email" placeholder="Your Email" required>
-
 <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-
 <button type="submit">Send Message</button>
-
 </form>
-
-<div id="success">
-Message Sent Successfully ✅
+<div id="success">Message Sent Successfully ✅</div>
 </div>
-
-</div>
-
 <script>
-
 document.getElementById("contact-form").addEventListener("submit", function(e){
-
 e.preventDefault();
-
 let formData = new FormData(this);
-
-fetch("https://formsubmit.co/ajax/hackerownme@gmail.com", {
-method: "POST",
-body: formData
-})
+fetch("https://formsubmit.co/ajax/hackerownme@gmail.com", {method:"POST",body:formData})
 .then(response => response.json())
 .then(data => {
-
 document.getElementById("success").style.display="block";
-
 document.getElementById("contact-form").reset();
-
 })
 .catch(error => alert("Error sending message"));
-
 });
-
 </script>
-
 </body>
 </html>
