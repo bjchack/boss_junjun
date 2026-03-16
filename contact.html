@@ -1,18 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Contact Us</title>
+<title>Contact Us - BJC Programming</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{font-family:Arial;background:#f2f2f2;padding:20px;}
-.container{max-width:400px;margin:auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.1);}
+body{
+  font-family:Arial, sans-serif;
+  background:#f2f2f2;
+  padding:20px;
+}
+.container{
+  max-width:400px;
+  margin:auto;
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
 h2{text-align:center;}
-input,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:5px;}
-button{width:100%;padding:12px;background:#007BFF;color:white;border:none;border-radius:5px;font-size:16px;cursor:pointer;}
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+button{
+  width:100%;
+  padding:12px;
+  background:#007BFF;
+  color:white;
+  border:none;
+  border-radius:5px;
+  font-size:16px;
+  cursor:pointer;
+}
 button:hover{background:#0056b3;}
-#success{display:none;text-align:center;background:#28a745;color:white;padding:10px;border-radius:5px;margin-top:10px;}
-.fb-button{display:block;text-align:center;margin-top:10px;}
-.fb-button a{background:#1877F2;color:white;padding:10px 20px;border-radius:5px;text-decoration:none;}
+#success{
+  display:none;
+  text-align:center;
+  background:#28a745;
+  color:white;
+  padding:10px;
+  border-radius:5px;
+  margin-top:10px;
+}
+.fb-button{
+  display:block;
+  text-align:center;
+  margin-top:10px;
+}
+.fb-button a{
+  background:#1877F2;
+  color:white;
+  padding:10px 20px;
+  border-radius:5px;
+  text-decoration:none;
+}
 .fb-button a:hover{background:#0e5abf;}
 </style>
 </head>
@@ -31,25 +75,26 @@ button:hover{background:#0056b3;}
 <div id="success">Message Sent Successfully ✅</div>
 
 <div class="fb-button">
-<a href="https://www.facebook.com/bossjunjun09" target="_blank">Chat with us on Facebook</a>
+<a href="https://www.facebook.com/yourprofile" target="_blank">Chat with us on Facebook</a>
 </div>
 </div>
 
 <script>
 document.getElementById("contact-form").addEventListener("submit", function(e){
-e.preventDefault();
-let formData = new FormData(this);
+  e.preventDefault();
+  let formData = new FormData(this);
 
-fetch("https://formsubmit.co/ajax/hackerownme@gmail.com", {
-method:"POST",
-body:formData
-})
-.then(response => response.json())
-.then(data => {
-document.getElementById("success").style.display="block";
-document.getElementById("contact-form").reset();
-})
-.catch(error => alert("Error sending message"));
+  // Gamit ang FormSubmit custom domain email
+  fetch("https://formsubmit.co/ajax/contact@bjcprogramming.store", {
+    method:"POST",
+    body:formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("success").style.display="block";
+    document.getElementById("contact-form").reset();
+  })
+  .catch(error => alert("Error sending message"));
 });
 </script>
 
