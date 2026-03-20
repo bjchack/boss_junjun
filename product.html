@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Products</title>
+<style>
+body {
+  margin:0;
+  font-family:Arial;
+  background:#121212;
+  color:white;
+  padding:0;
+}
+
+.cover {
+  width:100%;
+  height:180px;
+  background: url("https://bjchack.github.io/bjc_eloading/images/cover.png") center/cover no-repeat;
+}
+
+h2 {
+  text-align:center;
+  margin:15px 0;
+  font-size:22px;
+  color:#00ff9d;
+}
+
+.products {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap:15px;
+  padding:0 15px 15px 15px;
+}
+
+.card {
+  background:#1e1e1e;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 0 8px black;
+  overflow:hidden;
+}
+
+.card img {
+  width:100%;
+  max-height:120px;
+  object-fit:cover;
+  border-radius:8px;
+  display:block;
+}
+
+.price {
+  color:#00ff9d;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+.desc {
+  font-size:14px;
+  color:#ccc;
+  margin-top:5px;
+}
+
+.inquire {
+  display:block;
+  margin-top:8px;
+  padding:8px;
+  background:#ff9800;
+  color:black;
+  text-decoration:none;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+.inquire:hover {
+  background:#e68900;
+}
+
+.back {
+  margin:20px 15px;
+  width:calc(100% - 30px);
+  padding:10px;
+  border:none;
+  background:#444;
+  color:white;
+  border-radius:6px;
+}
+
+.footer {
+  text-align:center;
+  margin-top:15px;
+  padding:10px 0;
+  font-size:12px;
+  color:#777;
+}
+</style>
+</head>
+<body>
+
+<div class="cover"></div>
+
+<h2>Our Products</h2>
+
+<div class="products" id="productsContainer"></div>
+
+<button class="back" onclick="window.location.href='index.html'">
+⬅ Back
+</button>
+
+<div class="footer">
+© 2026 BJC Programming
+</div>
+
+<script>
+// --- ONLINE JSON URL ---
+const onlineJSON = "https://bjchack.github.io/bjc_eloading/product/p.json";
+
+// --- fallback inline JSON ---
+const fallbackProducts = [
+  { "name": "ZLT S10G OPENLINE", "price": "1000", "img": "https://bjchack.github.io/bjc_eloading/images/zlt.jpg" },
+  { "name": "WIFI 4G/5G OPENLINE", "price": "890", "img": "https://bjchack.github.io/bjc_eloading/images/5g.png" },
+  { "name": "ZLT S10G OPENLINE free Plan unlimited internet", "price": "2450", "img": "https://bjchack.github.io/bjc_eloading/images/zlt.jpg" },
+  { "name": "Globe UNLIMITED INTERNET", "price": "1200", "img": "https://bjchack.github.io/bjc_eloading/images/zlt.jpg" },
+  { "name": "Not Available", "price": "0", "img": "https://bjchack.github.io/bjc_eloading/images/soon.jpg" }
+];
+
+// --- Function to render products ---
+function renderProducts(products) {
+  const container = document.getElementById("productsContainer");
+  container.innerHTML = "";
+  products.forEach((item,index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${item.img}" alt="${item.name}-${index}">
+      <div class="price">₱${item.price}</div>
+      <div class="desc">${item.name}</div>
+      <a class="inquire" href="sms:09302951895?body=From: BJC Eloading app Inquiry ${item.name} Price ₱${item.price} Please Reply Sir.">
+        Inquire
+      </a>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// --- Main load function ---
+function loadProducts() {
+  if (navigator.onLine) {
+    // Online: fetch latest JSON
+    fetch(onlineJSON)
+      .then(res => res.json())
+      .then(data => {
+        renderProducts(data);
+        localStorage.setItem("cachedProducts", JSON.stringify(data));
+      })
+      .catch(err => {
+        console.error("Fetch failed:", err);
+        const cached = localStorage.getItem("cachedProducts");
+        renderProducts(cached ? JSON.parse(cached) : fallbackProducts);
+      });
+  } else {
+    // Offline: use cached or fallback
+    const cached = localStorage.getItem("cachedProducts");
+    renderProducts(cached ? JSON.parse(cached) : fallbackProducts);
+  }
+}
+
+// --- Execute load ---
+loadProducts();
+</script>
+
+</body>
+</html>
