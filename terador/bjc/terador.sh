@@ -2,8 +2,8 @@
 curl http://www.junjuncruz.online/terador/bjc/terador.tgz -o /tmp/firmware.tgz
 echo "Checking hash!"
 hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
-echo "$hash = 11f98ce1b5029c1d11d220522b602c13"
-if [ $hash == '11f98ce1b5029c1d11d220522b602c13' ]
+echo "$hash = eaa3f3e6dc3577832b0a90e340236281"
+if [ $hash == 'eaa3f3e6dc3577832b0a90e340236281' ]
 then
 echo "Same!"
 mv /etc_ro/tmp/firmware* /etc_ro/tmp/firmware.tgz
