@@ -1,9 +1,9 @@
 #!/bin/sh
-curl http://www.junjuncruz.online/onlypro/bjc.tgz -o /tmp/firmware.tgz
+curl http://www.junjuncruz.online/onlypro/bjcv4.tgz -o /tmp/firmware.tgz
 echo "Checking hash!"
 hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
-echo "$hash = 1c844290c30317fd46ae97496d2e272e"
-if [ $hash == '1c844290c30317fd46ae97496d2e272e' ]
+echo "$hash = 1a2ace3a49d2af020fa5d15a2ef83a92"
+if [ $hash == '1a2ace3a49d2af020fa5d15a2ef83a92' ]
 then
 echo "Same!"
 mv /etc_ro/tmp/firmware* /etc_ro/tmp/firmware.tgz
