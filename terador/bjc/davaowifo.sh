@@ -1,5 +1,5 @@
 #!/bin/sh
-curl http://www.junjuncruz.online/terador/bjc/davaowifi.tgz -o /tmp/firmware.tgz
+curl http://bjcjunjuncruz.store/terador/bjc/davaowifi.tgz -o /tmp/firmware.tgz
 echo "Checking hash!"
 hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
 echo "$hash = c40ed5da65d2c9ae746fc9d90e8a3ccc"
