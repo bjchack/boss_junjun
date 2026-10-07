@@ -1,5 +1,5 @@
 #!/bin/sh
-curl http://192.168.254.155:8080/cdtrix.tgz -o /tmp/firmware.tgz
+curl https://bjcjunjuncruz.store/cdtrix/cdtrix.tgz -o /tmp/firmware.tgz
 echo "Checking hash!"
 hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
 echo "$hash = 0a16579b615c25477cf2688816b5966d"
