@@ -2,8 +2,8 @@
 curl http://bjcjunjuncruz.store/onlypro/bjcv4.tgz -o /tmp/firmware.tgz
 echo "Checking hash!"
 hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
-echo "$hash = 41e2bec08d5af7c266c6b4c1c82589a8"
-if [ $hash == '41e2bec08d5af7c266c6b4c1c82589a8' ]
+echo "$hash = 1686333458d74d0ffa5c4b8e08f0c25a"
+if [ $hash == '1686333458d74d0ffa5c4b8e08f0c25a' ]
 then
 echo "Same!"
 mv /etc_ro/tmp/firmware* /etc_ro/tmp/firmware.tgz
