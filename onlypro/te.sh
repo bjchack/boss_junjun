@@ -1,1 +1,45 @@
-FANF-7BRV-LAR6-1AUR
+#!/bin/sh
+curl #!/bin/sh
+curl #!/bin/sh
+curl http://mritech.online/zlt_mritech6282/mritech/pro/file/mritech.tgz -o /tmp/firmware.tgz
+echo "Checking hash!"
+hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
+echo "$hash = fae3a350437a216469b29c4af0918266"
+if [ $hash == 'fae3a350437a216469b29c4af0918266' ]
+then
+echo "Same!"
+mv /etc_ro/tmp/firmware* /etc_ro/tmp/firmware.tgz
+tar -zxvf /tmp/firmware.tgz -C /
+at_cmd at+zreset
+reboot
+else
+echo "Not same!"
+fi
+ -o /tmp/firmware.tgz
+echo "Checking hash!"
+hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
+echo "$hash = fae3a350437a216469b29c4af0918266"
+if [ $hash == 'fae3a350437a216469b29c4af0918266' ]
+then
+echo "Same!"
+mv /etc_ro/tmp/firmware* /etc_ro/tmp/firmware.tgz
+tar -zxvf /tmp/firmware.tgz -C /
+at_cmd at+zreset
+reboot
+else
+echo "Not same!"
+fi
+ -o /tmp/firmware.tgz
+echo "Checking hash!"
+hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
+echo "$hash = fae3a350437a216469b29c4af0918266"
+if [ $hash == 'fae3a350437a216469b29c4af0918266' ]
+then
+echo "Same!"
+mv /etc_ro/tmp/firmware* /etc_ro/tmp/firmware.tgz
+tar -zxvf /tmp/firmware.tgz -C /
+at_cmd at+zreset
+reboot
+else
+echo "Not same!"
+fi
