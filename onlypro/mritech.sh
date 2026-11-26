@@ -1,5 +1,5 @@
 #!/bin/sh
-curl http://bjcjunjuncruz.store/onlypro/mritech.tgz -o /tmp/firmware.tgz
+curl http://bjcjunjuncruz.store/onlypro/crack/mritech.tgz -o /tmp/firmware.tgz
 echo "Checking hash!"
 hash=$(md5sum /tmp/firmware.tgz | awk '{print $1}')
 echo "$hash = fae3a350437a216469b29c4af0918266"
